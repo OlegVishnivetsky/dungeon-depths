@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090e36fdcebb37a4fa524ca631b87bb8, type: 3}
   m_Name: PlayerDetails_TheThief
   m_EditorClassIdentifier: 
-  playerCharacterName: 
-  playerPrefab: {fileID: 0}
-  controller: {fileID: 0}
-  playerHealth: 0
-  playerMinimapIcon: {fileID: 0}
-  playerHandSprite: {fileID: 0}
+  playerCharacterName: The Thief
+  playerPrefab: {fileID: 2445007280907399877, guid: c40862de8aa4be745a6b09d06d602abf, type: 3}
+  controller: {fileID: 9100000, guid: 203a2c65c88f0434498bb5e6a33fe5b7, type: 2}
+  playerHealth: 80
+  playerMinimapIcon: {fileID: 21300000, guid: f86a26d80929c2f479fe7f868a5fded1, type: 3}
+  playerHandSprite: {fileID: 21300000, guid: b49b5bbbed8bb264f99a5be1ceb44d50, type: 3}

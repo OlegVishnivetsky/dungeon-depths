@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090e36fdcebb37a4fa524ca631b87bb8, type: 3}
   m_Name: PlayerDetail_TheGeneral
   m_EditorClassIdentifier: 
-  playerCharacterName: 
-  playerPrefab: {fileID: 0}
-  controller: {fileID: 0}
-  playerHealth: 0
-  playerMinimapIcon: {fileID: 0}
-  playerHandSprite: {fileID: 0}
+  playerCharacterName: The General
+  playerPrefab: {fileID: 4001525315884524665, guid: d878c59bd082b984fb0a654e396e94f4, type: 3}
+  controller: {fileID: 9100000, guid: e87ce176a15556c459b355908992b930, type: 2}
+  playerHealth: 100
+  playerMinimapIcon: {fileID: 21300000, guid: 709f49100a0267f419aa33d571fb9d25, type: 3}
+  playerHandSprite: {fileID: 21300000, guid: a8c352369ed75924d84743672d1ab512, type: 3}
