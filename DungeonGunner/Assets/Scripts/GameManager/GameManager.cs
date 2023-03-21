@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,22 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 {
     [SerializeField] private List<DungeonLevelSO> dungeonLevelList;
     [SerializeField] private int currentDungeonLevelListIndex = 0;
+
+    private Room currentRoom;
+    private Room previousRoom;
+
+    private PlayerDetailsSO playerDetails;
+    private Player player;
+
     [HideInInspector] public GameState gameState;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        playerDetails = GameResources.Instance.currentPlayerSO.playerDetails;
+        InstantiatePlayer();
+    }
 
     private void Start()
     {
@@ -21,6 +37,21 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         {
             gameState = GameState.GameStarted;
         }
+    }
+
+    public Player GetPlayer()
+    {
+        return player;
+    }
+
+    public Room GetCurrentRoom()
+    {
+        return currentRoom;
+    }
+
+    public void SetCurrentRoom(Room room)
+    {
+        currentRoom = room;
     }
 
     private void HandleGameState()
@@ -42,6 +73,19 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         {
             Debug.LogError("Couldn't build dungeon from specified rooms and node graphs");
         }
+
+        player.gameObject.transform.position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f,
+            (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0f);
+
+        player.gameObject.transform.position = HelperUtilities.GetSpawnPositionNearestToPlayer(player.gameObject.transform.position);
+    }
+
+    private void InstantiatePlayer()
+    {
+        GameObject playerObject = Instantiate(playerDetails.playerPrefab);
+
+        player = playerObject.GetComponent<Player>();
+        player.Initialize(playerDetails);
     }
 
     #region Validation

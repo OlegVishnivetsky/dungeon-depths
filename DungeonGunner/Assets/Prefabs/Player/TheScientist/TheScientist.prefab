@@ -1,12 +1,40 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7969631520716591377
+--- !u!1001 &8842489382542240568
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2243155129460318749, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Name
+      value: HandNoWeapon
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965692913560202991, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Size.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965692913560202991, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4965692913560202991, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2788b711f80a9194096a03ef26a440cb, type: 3}
+    - target: {fileID: 4965692913560202991, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726248372670243754, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e52ed9234b488b0449570da9e57ce474, type: 2}
+    - target: {fileID: 5726248372670243755, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2887896937163043261, guid: ffa25ab59b41d9d4abbfe10d88fea3d7, type: 3}
     - target: {fileID: 5726248372670243757, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -53,7 +81,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5726248372670243796, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: TheScientist
+      objectReference: {fileID: 0}
+    - target: {fileID: 5726248372670243799, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Mass
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704955501388809831, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Size.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704955501388809831, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Size.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704955501388809831, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2788b711f80a9194096a03ef26a440cb, type: 3}
+    - target: {fileID: 8704955501388809831, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
