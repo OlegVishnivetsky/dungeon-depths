@@ -287,15 +287,15 @@ SpriteRenderer:
   m_SortingLayerID: -653709415
   m_SortingLayer: 4
   m_SortingOrder: 5
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.125, y: 0.6875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!60 &5726248372201061813
@@ -314,10 +314,10 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.18444446, y: 0.37008545}
+    oldSize: {x: 1.125, y: 0.6875}
+    newSize: {x: 1.125, y: 0.6875}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -341,6 +341,12 @@ GameObject:
   - component: {fileID: 5726248372670243799}
   - component: {fileID: 5726248372670243798}
   - component: {fileID: 5726248372670243797}
+  - component: {fileID: 3367106520531422047}
+  - component: {fileID: 1826812131892687838}
+  - component: {fileID: 4518760972993303317}
+  - component: {fileID: 885542379349116088}
+  - component: {fileID: 76304206219573198}
+  - component: {fileID: 8301489915335128524}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -546,6 +552,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerDetails: {fileID: 0}
   health: {fileID: 0}
+  idleEvent: {fileID: 0}
+  aimWeaponEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &5726248372670243797
@@ -560,6 +568,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbc8209c06d5124a8df367870a604be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3367106520531422047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0707041deddfd8740a451bf5e45077b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1826812131892687838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5da4bf494ccf34c8ee8585465458ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4518760972993303317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33a9114fea0fd745ae8007e0737e208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &885542379349116088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb7c9bfec901ec43b166d16b0dd65b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponRotationPointTransform: {fileID: 5726248372124553286}
+--- !u!114 &76304206219573198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843e0c8e74789ac44970734d9343af73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8301489915335128524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c0b2176fde4f8b47868fb07b9f15872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponShootPosition: {fileID: 3189687128100442010}
 --- !u!1 &6467146527280543838
 GameObject:
   m_ObjectHideFlags: 0
