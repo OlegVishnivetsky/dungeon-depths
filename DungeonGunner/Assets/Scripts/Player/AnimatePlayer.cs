@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -14,12 +15,14 @@ public class AnimatePlayer : MonoBehaviour
     private void OnEnable()
     {
         player.idleEvent.OnIdle += IdleEvent_OnIdle;
+        player.movementByVelocityEvent.OnMovementByVelocity += MovementByVelocityEvent_OnMovementByVelocity;
         player.aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
     }
 
     private void OnDisable()
     {
         player.idleEvent.OnIdle -= IdleEvent_OnIdle;
+        player.movementByVelocityEvent.OnMovementByVelocity -= MovementByVelocityEvent_OnMovementByVelocity;
         player.aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
     }
 
@@ -34,10 +37,22 @@ public class AnimatePlayer : MonoBehaviour
         SetAimAnimationParameters(aimWeaponEventArgs.aimDirection);
     }
 
+    private void MovementByVelocityEvent_OnMovementByVelocity(MovementByVelocityEvent movementByVelocityEvent, 
+        MovementByVelocityEventArgs movementByVelocityArgs)
+    {
+        SetMovementAnimationParameters(movementByVelocityArgs.moveDirection);
+    }
+
     private void SetIdleAnimationParameters()
     {
         player.animator.SetBool(Settings.isMoving, false);
         player.animator.SetBool(Settings.isIdle, true);
+    }
+
+    private void SetMovementAnimationParameters(Vector3 moveDirection)
+    {
+        player.animator.SetBool(Settings.isMoving, true);
+        player.animator.SetBool(Settings.isIdle, false);
     }
 
     private void InitializeAimAnimationParameters()

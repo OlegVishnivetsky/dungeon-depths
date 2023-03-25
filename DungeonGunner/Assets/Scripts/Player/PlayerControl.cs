@@ -1,13 +1,18 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] private MovementDetailsSO movementDetails;
     [SerializeField] private Transform weaponShootPosition;
 
     private Player player;
 
+    private float moveSpeed;
+
     private void Awake()
     {
+        moveSpeed = movementDetails.GetMoveSpeed();
         player = GetComponent<Player>();
     }
 
@@ -19,7 +24,19 @@ public class PlayerControl : MonoBehaviour
 
     private void MovementInput()
     {
-        player.idleEvent.InvokeIdleEvent();
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        Vector2 direction = new Vector2(horizontalInput, verticalInput).normalized;
+
+        if (direction != Vector2.zero )
+        {
+            player.movementByVelocityEvent.InvokeMovementByVelocityEvent(direction, moveSpeed);
+        }
+        else
+        {
+            player.idleEvent.InvokeIdleEvent();
+        }
     }
 
     private void WeaponInput()
@@ -45,4 +62,17 @@ public class PlayerControl : MonoBehaviour
         player.aimWeaponEvent.InvokeAimWeaponEvent(aimDirection, playerAngleDengrees, weaponAngleDegrees,
             playerDirection);
     }
+
+    #region Validation
+
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        HelperUtilities.ValidateCheckNullValue(this, nameof(movementDetails), movementDetails);
+    }
+
+#endif
+
+    #endregion
 }
