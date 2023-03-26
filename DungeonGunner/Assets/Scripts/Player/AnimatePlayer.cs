@@ -16,6 +16,7 @@ public class AnimatePlayer : MonoBehaviour
     {
         player.idleEvent.OnIdle += IdleEvent_OnIdle;
         player.movementByVelocityEvent.OnMovementByVelocity += MovementByVelocityEvent_OnMovementByVelocity;
+        player.movementToPositionEvent.OnMovementToPosition += MovementToPositionEvent_OnMovementToPosition;
         player.aimWeaponEvent.OnWeaponAim += AimWeaponEvent_OnWeaponAim;
     }
 
@@ -23,17 +24,20 @@ public class AnimatePlayer : MonoBehaviour
     {
         player.idleEvent.OnIdle -= IdleEvent_OnIdle;
         player.movementByVelocityEvent.OnMovementByVelocity -= MovementByVelocityEvent_OnMovementByVelocity;
+        player.movementToPositionEvent.OnMovementToPosition -= MovementToPositionEvent_OnMovementToPosition;
         player.aimWeaponEvent.OnWeaponAim -= AimWeaponEvent_OnWeaponAim;
     }
 
     private void IdleEvent_OnIdle(IdleEvent idleEvent)
     {
+        InitializeRollAnimationParameters();
         SetIdleAnimationParameters();
     }
 
     private void AimWeaponEvent_OnWeaponAim(AimWeaponEvent aimWeaponEvent, AimWeaponEventArgs aimWeaponEventArgs)
     {
         InitializeAimAnimationParameters();
+        InitializeRollAnimationParameters();
         SetAimAnimationParameters(aimWeaponEventArgs.aimDirection);
     }
 
@@ -41,6 +45,32 @@ public class AnimatePlayer : MonoBehaviour
         MovementByVelocityEventArgs movementByVelocityArgs)
     {
         SetMovementAnimationParameters(movementByVelocityArgs.moveDirection);
+    }
+
+    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent, 
+        MovementToPositionEventArgs movementToPositionArgs)
+    {
+        InitializeAimAnimationParameters();
+        InitializeRollAnimationParameters();
+        SetMovementToPositionAnimationParameters(movementToPositionArgs);
+    }
+
+    private void InitializeAimAnimationParameters()
+    {
+        player.animator.SetBool(Settings.aimUp, false);
+        player.animator.SetBool(Settings.aimUpLeft, false);
+        player.animator.SetBool(Settings.aimUpRight, false);
+        player.animator.SetBool(Settings.aimLeft, false);
+        player.animator.SetBool(Settings.aimRight, false);
+        player.animator.SetBool(Settings.aimDown, false);
+    }
+
+    private void InitializeRollAnimationParameters()
+    {
+        player.animator.SetBool(Settings.rollUp, false);
+        player.animator.SetBool(Settings.rollRight, false);
+        player.animator.SetBool(Settings.rollDown, false);
+        player.animator.SetBool(Settings.rollLeft, false);
     }
 
     private void SetIdleAnimationParameters()
@@ -55,14 +85,29 @@ public class AnimatePlayer : MonoBehaviour
         player.animator.SetBool(Settings.isIdle, false);
     }
 
-    private void InitializeAimAnimationParameters()
+    private void SetMovementToPositionAnimationParameters(MovementToPositionEventArgs movementToPositionArgs)
     {
-        player.animator.SetBool(Settings.aimUp, false);
-        player.animator.SetBool(Settings.aimUpLeft, false);
-        player.animator.SetBool(Settings.aimUpRight, false);
-        player.animator.SetBool(Settings.aimLeft, false);
-        player.animator.SetBool(Settings.aimRight, false);
-        player.animator.SetBool(Settings.aimDown, false);
+        if (movementToPositionArgs.isRolling)
+        {
+            if (movementToPositionArgs.moveDirection.x > 0)
+            {
+                player.animator.SetBool(Settings.rollRight, true);
+            }
+            else if (movementToPositionArgs.moveDirection.x < 0)
+            {
+                player.animator.SetBool(Settings.rollLeft, true);
+            }
+            else if (movementToPositionArgs.moveDirection.y > 0)
+            {
+                player.animator.SetBool(Settings.rollUp, true);
+            }
+            else if (movementToPositionArgs.moveDirection.y < 0)
+            {
+                player.animator.SetBool(Settings.rollDown, true);
+            }
+        }
+
+        
     }
 
     private void SetAimAnimationParameters(AimDirection aimDirection)

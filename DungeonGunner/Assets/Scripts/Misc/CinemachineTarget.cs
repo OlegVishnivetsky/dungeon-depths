@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(CinemachineTargetGroup))]
 public class CinemachineTarget : MonoBehaviour
 {
+    [SerializeField] private Transform cursorTargetTransform;
+
     private CinemachineTargetGroup cinemachineTargetGroup;
 
     private void Awake()
@@ -16,12 +18,21 @@ public class CinemachineTarget : MonoBehaviour
         SetCinemachineTargetGroup();
     }
 
+    private void Update()
+    {
+        cursorTargetTransform.position = HelperUtilities.GetMouseWorldPosition();
+    }
+
     private void SetCinemachineTargetGroup()
     {
         CinemachineTargetGroup.Target cinemachinePlayerTarget = new CinemachineTargetGroup.Target
-        { weight = 1f, radius = 1f, target = GameManager.Instance.GetPlayer().transform };
+        { weight = 1f, radius = 2.5f, target = GameManager.Instance.GetPlayer().transform };
 
-        CinemachineTargetGroup.Target[] cinemachineTargetArray = new CinemachineTargetGroup.Target[] { cinemachinePlayerTarget };
+        CinemachineTargetGroup.Target cinemachineCursorTarget = new CinemachineTargetGroup.Target
+        { weight = 1f, radius = 1f, target = cursorTargetTransform };
+
+        CinemachineTargetGroup.Target[] cinemachineTargetArray = new CinemachineTargetGroup.Target[] 
+        { cinemachinePlayerTarget, cinemachineCursorTarget };
 
         cinemachineTargetGroup.m_Targets = cinemachineTargetArray;
     }
