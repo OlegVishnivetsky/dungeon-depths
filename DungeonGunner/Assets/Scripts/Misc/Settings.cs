@@ -7,7 +7,7 @@ public static class Settings
     public const float pixelsPerUnit = 16f;
     public const float tileSizePixels = 16f;
 
-    #endregion
+    #endregion UNITS
 
     #region DUNGEON BUILD SETTINGS
 
@@ -36,6 +36,14 @@ public static class Settings
     public static int rollDown = Animator.StringToHash("rollDown");
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollRight = Animator.StringToHash("rollRight");
+    public static int openDoor = Animator.StringToHash("open");
 
-    #endregion
+    #endregion ANIMATOR PARAMETERS
+
+    #region GAMEOBJECT TAGS
+
+    public const string playerTag = "Player";
+    public const string playerWeapon = "playerWeapon";
+
+    #endregion GAMEOBJECT TAGS
 }

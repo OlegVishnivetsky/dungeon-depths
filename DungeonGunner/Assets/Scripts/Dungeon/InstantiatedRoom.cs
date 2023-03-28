@@ -131,7 +131,7 @@ public class InstantiatedRoom : MonoBehaviour
     private void BlockDoorwayHorizontally(Tilemap tilemap, Doorway doorway)
     {
         Vector2Int startPosition = doorway.doorwayStartCopyPosition;
-        
+
         for (int xPos = 0; xPos < doorway.doorwayCopyTileWidth; xPos++)
         {
             for (int yPos = 0; yPos < doorway.doorwayCopyTileHeight; yPos++)
@@ -180,36 +180,46 @@ public class InstantiatedRoom : MonoBehaviour
 
         foreach (Doorway doorway in room.doorWayList)
         {
+            GameObject doorObject = null;
+
             if (doorway.doorPrefab != null && doorway.isConnected)
             {
                 if (doorway.orientation == Orientation.North)
                 {
-                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance / 2f,
+                    doorObject = InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance / 2f,
                         doorway.position.y + tileDistance, 0f));
                 }
                 else if (doorway.orientation == Orientation.South)
                 {
-                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance / 2f,
+                    doorObject = InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance / 2f,
                         doorway.position.y, 0f));
                 }
                 else if (doorway.orientation == Orientation.East)
                 {
-                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance,
+                    doorObject = InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance,
+                        doorway.position.y + tileDistance * 1.25f, 0f));
+                }
+                else if (doorway.orientation == Orientation.West)
+                {
+                    doorObject = InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x,
                         doorway.position.y + tileDistance * 1.25f, 0f));
                 }
 
-                else if (doorway.orientation == Orientation.West)
+                Door doorComponent = doorObject.GetComponent<Door>();
+
+                if (room.roomNodeType.isBossRoom)
                 {
-                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x,
-                        doorway.position.y + tileDistance * 1.25f, 0f));
+                    doorComponent.isBossRoomDoor = true;
+                    doorComponent.LockDoor();
                 }
             }
         }
 
-        void InstantiateAndPositionDoorObject(GameObject doorPrefab, Vector3 position)
+        GameObject InstantiateAndPositionDoorObject(GameObject doorPrefab, Vector3 position)
         {
             GameObject doorObject = Instantiate(doorPrefab, gameObject.transform);
             doorObject.transform.localPosition = position;
+            return doorObject;
         }
     }
 }
