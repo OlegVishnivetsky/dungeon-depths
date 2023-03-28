@@ -18,6 +18,7 @@ public static class Settings
 
     #region ROOM SETTINGS
 
+    public const float fadeInTime = 0.5f;
     public const int maxChildCorridors = 3;
 
     #endregion ROOM SETTINGS
@@ -37,6 +38,8 @@ public static class Settings
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollRight = Animator.StringToHash("rollRight");
     public static int openDoor = Animator.StringToHash("open");
+
+    public static float baseSpeedForPlayerAnimation = 8f;
 
     #endregion ANIMATOR PARAMETERS
 

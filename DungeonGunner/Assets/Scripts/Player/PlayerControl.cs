@@ -1,5 +1,3 @@
-using Cinemachine.Utility;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,6 +25,7 @@ public class PlayerControl : MonoBehaviour
     private void Start()
     {
         waitForFixedUpdate = new WaitForFixedUpdate();
+        SetPlayerAnimationSpeed();
     }
 
     private void Update()
@@ -49,7 +48,7 @@ public class PlayerControl : MonoBehaviour
 
         Vector2 direction = new Vector2(horizontalInput, verticalInput).normalized;
 
-        if (direction != Vector2.zero )
+        if (direction != Vector2.zero)
         {
             if (!rightMouseButtonDown)
             {
@@ -82,8 +81,8 @@ public class PlayerControl : MonoBehaviour
         while (Vector3.Distance(player.transform.position, targetPostion) > minDistance)
         {
             player.movementToPositionEvent.InvokeMovementToPositionEvent(targetPostion,
-                player.transform.position, direction, movementDetails.rollSpeed, isPlayerRolling); 
-            
+                player.transform.position, direction, movementDetails.rollSpeed, isPlayerRolling);
+
             yield return waitForFixedUpdate;
         }
 
@@ -101,7 +100,7 @@ public class PlayerControl : MonoBehaviour
         AimWeaponInput(out weaponDirection, out weaponAngleDegrees, out playerAngleDengrees, out aimDirection);
     }
 
-    private void AimWeaponInput(out Vector3 weaponDirection, out float weaponAngleDegrees, out float playerAngleDengrees, 
+    private void AimWeaponInput(out Vector3 weaponDirection, out float weaponAngleDegrees, out float playerAngleDengrees,
         out AimDirection aimDirection)
     {
         Vector3 mouseWorldPosition = HelperUtilities.GetMouseWorldPosition();
@@ -138,6 +137,11 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
+    private void SetPlayerAnimationSpeed()
+    {
+        player.animator.speed = moveSpeed / Settings.baseSpeedForPlayerAnimation;
+    }
+
     #region Validation
 
 #if UNITY_EDITOR
@@ -149,5 +153,5 @@ public class PlayerControl : MonoBehaviour
 
 #endif
 
-    #endregion
+    #endregion Validation
 }
