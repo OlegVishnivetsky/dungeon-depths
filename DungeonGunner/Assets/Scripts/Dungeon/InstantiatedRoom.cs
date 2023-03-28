@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -32,6 +31,8 @@ public class InstantiatedRoom : MonoBehaviour
         BlockOfUnusedDoorways();
 
         DisableCollisionTilemapRenderer();
+
+        AddDoorsToRooms();
     }
 
     private void PopulateTilemapMemberVariables(GameObject roomGameobject)
@@ -166,5 +167,49 @@ public class InstantiatedRoom : MonoBehaviour
     private void DisableCollisionTilemapRenderer()
     {
         collisionTilemap.gameObject.GetComponent<TilemapRenderer>().enabled = false;
+    }
+
+    private void AddDoorsToRooms()
+    {
+        if (room.roomNodeType.isCorridorEW || room.roomNodeType.isCorridorNS)
+        {
+            return;
+        }
+
+        float tileDistance = Settings.tileSizePixels / Settings.pixelsPerUnit;
+
+        foreach (Doorway doorway in room.doorWayList)
+        {
+            if (doorway.doorPrefab != null && doorway.isConnected)
+            {
+                if (doorway.orientation == Orientation.North)
+                {
+                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance / 2f,
+                        doorway.position.y + tileDistance, 0f));
+                }
+                else if (doorway.orientation == Orientation.South)
+                {
+                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance / 2f,
+                        doorway.position.y, 0f));
+                }
+                else if (doorway.orientation == Orientation.East)
+                {
+                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x + tileDistance,
+                        doorway.position.y + tileDistance * 1.25f, 0f));
+                }
+
+                else if (doorway.orientation == Orientation.West)
+                {
+                    InstantiateAndPositionDoorObject(doorway.doorPrefab, new Vector3(doorway.position.x,
+                        doorway.position.y + tileDistance * 1.25f, 0f));
+                }
+            }
+        }
+
+        void InstantiateAndPositionDoorObject(GameObject doorPrefab, Vector3 position)
+        {
+            GameObject doorObject = Instantiate(doorPrefab, gameObject.transform);
+            doorObject.transform.localPosition = position;
+        }
     }
 }

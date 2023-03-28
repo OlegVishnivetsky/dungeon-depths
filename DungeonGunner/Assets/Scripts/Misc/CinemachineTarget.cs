@@ -26,7 +26,7 @@ public class CinemachineTarget : MonoBehaviour
     private void SetCinemachineTargetGroup()
     {
         CinemachineTargetGroup.Target cinemachinePlayerTarget = new CinemachineTargetGroup.Target
-        { weight = 1f, radius = 2.5f, target = GameManager.Instance.GetPlayer().transform };
+        { weight = 1f, radius = 5f, target = GameManager.Instance.GetPlayer().transform };
 
         CinemachineTargetGroup.Target cinemachineCursorTarget = new CinemachineTargetGroup.Target
         { weight = 1f, radius = 1f, target = cursorTargetTransform };
