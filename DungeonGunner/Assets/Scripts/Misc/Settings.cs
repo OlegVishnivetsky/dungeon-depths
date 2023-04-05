@@ -49,4 +49,10 @@ public static class Settings
     public const string playerWeapon = "playerWeapon";
 
     #endregion GAMEOBJECT TAGS
+
+    #region FIRING CONTROL
+
+    public const float useAimAngleDistance = 3.5f;
+
+    #endregion FIRING CONTROL
 }

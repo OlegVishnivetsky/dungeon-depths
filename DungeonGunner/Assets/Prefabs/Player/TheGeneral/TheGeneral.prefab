@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HandNoWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 3189687128100442010, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.608
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189687128100442010, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4965692913560202991, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
       propertyPath: m_Size.x
       value: 0.25
@@ -56,20 +64,16 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5726248372201061814, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
-      propertyPath: m_Size.x
-      value: 1.125
+      propertyPath: m_SortingLayer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5726248372201061814, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
-      propertyPath: m_Size.y
-      value: 0.6875
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5726248372201061814, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
-    - target: {fileID: 5726248372201061814, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
+      propertyPath: m_SortingLayerID
+      value: -653709415
       objectReference: {fileID: 0}
     - target: {fileID: 5726248372670243754, guid: 463d5f5128b5f474da420fca83d51023, type: 3}
       propertyPath: m_Controller

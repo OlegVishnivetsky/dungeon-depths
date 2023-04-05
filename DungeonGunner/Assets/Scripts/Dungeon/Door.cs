@@ -10,7 +10,7 @@ public class Door : MonoBehaviour
     private Animator animator;
 
     [HideInInspector] public bool isBossRoomDoor = false;
-    private bool isOpen = false;
+    [SerializeField] private bool isOpen = false;
     private bool isPreviouslyOpened = false;
      
     private void Awake()
@@ -44,7 +44,7 @@ public class Door : MonoBehaviour
             doorCollider.enabled = false;
             doorTrigger.enabled = false;
 
-            animator.SetBool(Settings.openDoor, true);
+            animator.SetBool(Settings.openDoor, isOpen);
         }
     }
 
