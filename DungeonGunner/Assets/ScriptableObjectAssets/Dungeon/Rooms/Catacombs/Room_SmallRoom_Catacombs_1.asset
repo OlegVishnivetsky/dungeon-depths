@@ -39,7 +39,7 @@ MonoBehaviour:
     orientation: 1
     doorPrefab: {fileID: 3883239902703032739, guid: 286d036728bd7944ea884ad0dc3f3756, type: 3}
     doorwayStartCopyPosition: {x: 26, y: 19}
-    doorwayCopyTileWidth: 5
+    doorwayCopyTileWidth: 4
     doorwayCopyTileHeight: 8
     isConnected: 0
     isUnavailable: 0

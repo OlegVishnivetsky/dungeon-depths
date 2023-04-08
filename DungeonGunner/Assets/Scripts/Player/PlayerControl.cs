@@ -1,12 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Player))]
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private MovementDetailsSO movementDetails;
-    [SerializeField] private Transform weaponShootPosition;
 
     private Player player;
+
+    private int currentWeaponIndex = 1;
 
     private float moveSpeed;
 
@@ -25,6 +28,9 @@ public class PlayerControl : MonoBehaviour
     private void Start()
     {
         waitForFixedUpdate = new WaitForFixedUpdate();
+
+        SetStartingWeapon();
+
         SetPlayerAnimationSpeed();
     }
 
@@ -106,7 +112,7 @@ public class PlayerControl : MonoBehaviour
         Vector3 mouseWorldPosition = HelperUtilities.GetMouseWorldPosition();
         Vector3 playerDirection = (mouseWorldPosition - transform.position);
 
-        weaponDirection = (mouseWorldPosition - weaponShootPosition.position);
+        weaponDirection = (mouseWorldPosition - player.activeWeapon.GetWeaponShootPosition());
         weaponAngleDegrees = HelperUtilities.GetAngleFromVector(weaponDirection);
         playerAngleDengrees = HelperUtilities.GetAngleFromVector(playerDirection);
         aimDirection = HelperUtilities.GetAimDirection(playerAngleDengrees);
@@ -140,6 +146,31 @@ public class PlayerControl : MonoBehaviour
     private void SetPlayerAnimationSpeed()
     {
         player.animator.speed = moveSpeed / Settings.baseSpeedForPlayerAnimation;
+    }
+
+    private void SetStartingWeapon()
+    {
+        int index = 1;
+
+        foreach (Weapon weapon in player.weapoList)
+        {
+            if (weapon.weaponDetails == player.playerDetails.startingWeapon)
+            {
+                SetWeaponByIndex(index);
+                break;
+            }
+
+            index++;
+        }
+    }
+
+    private void SetWeaponByIndex(int weaponIndex)
+    {
+        if (weaponIndex - 1 < player.weapoList.Count)
+        {
+            currentWeaponIndex = weaponIndex;
+            player.setActiveWeaponEvent.InvokeSetActiveWeaponEvent(player.weapoList[weaponIndex - 1]);
+        }
     }
 
     #region Validation

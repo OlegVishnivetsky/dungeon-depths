@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerDetail_", menuName = "Scriptable Objects/Player/Player Details")]
@@ -11,6 +12,10 @@ public class PlayerDetailsSO : ScriptableObject
 
     [Header("HEALTH")]
     public int playerHealth;
+
+    [Header("WEAPON")]
+    public WeaponDetailsSO startingWeapon;
+    public List<WeaponDetailsSO> startingWeaponList;
 
     [Header("OTHER")]
     public Sprite playerMinimapIcon;
@@ -26,6 +31,8 @@ public class PlayerDetailsSO : ScriptableObject
         HelperUtilities.ValidateCheckEmptyString(this, nameof(playerCharacterName), playerCharacterName);
         HelperUtilities.ValidateCheckPositiveValue(this, nameof(playerHealth), playerHealth, true);
         HelperUtilities.ValidateCheckNullValue(this, nameof(playerPrefab), playerPrefab);
+        HelperUtilities.ValidateCheckNullValue(this, nameof(startingWeapon), startingWeapon);
+        HelperUtilities.ValidateCheckEnumerableValues(this, nameof(startingWeaponList), startingWeaponList);
     }
 
 #endif
