@@ -297,7 +297,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!60 &5726248372201061813
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -353,6 +353,9 @@ GameObject:
   - component: {fileID: 8633386952721341741}
   - component: {fileID: 1508540840529400746}
   - component: {fileID: 2787151653910152614}
+  - component: {fileID: 4253522214817491799}
+  - component: {fileID: 2229316676105135706}
+  - component: {fileID: -3580757667078080853}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -560,7 +563,10 @@ MonoBehaviour:
   health: {fileID: 0}
   idleEvent: {fileID: 0}
   aimWeaponEvent: {fileID: 0}
+  fireWeaponEvent: {fileID: 0}
+  weaponFiredEvent: {fileID: 0}
   setActiveWeaponEvent: {fileID: 0}
+  activeWeapon: {fileID: 0}
   movementByVelocityEvent: {fileID: 0}
   movementToPositionEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
@@ -651,7 +657,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementDetails: {fileID: 11400000, guid: 53b541b15ba2d3d4a9e45ac500edea02, type: 2}
-  weaponShootPosition: {fileID: 3189687128100442010}
 --- !u!114 &-1259808764674483432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -728,6 +733,42 @@ MonoBehaviour:
   weaponPolygonCollider2D: {fileID: 5726248372201061813}
   weaponShootPositionTransfrom: {fileID: 3189687128100442010}
   weaponEffectPositionTransfrom: {fileID: 2922934131726483276}
+--- !u!114 &4253522214817491799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb25eb54bc357e41b104a6b891b210b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2229316676105135706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 674db4db93920b446bf8443a9108e5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-3580757667078080853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726248372670243796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 481ae55ddae79284584bc41bd78ddc9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6467146527280543838
 GameObject:
   m_ObjectHideFlags: 0

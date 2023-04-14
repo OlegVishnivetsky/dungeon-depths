@@ -27,7 +27,7 @@ public class Ammo : MonoBehaviour, IFireable
 
     private void Update()
     {
-        if (ammoChargeTimer > 0)
+        if (ammoChargeTimer > 0f)
         {
             ammoChargeTimer -= Time.deltaTime;
             return;
@@ -41,6 +41,7 @@ public class Ammo : MonoBehaviour, IFireable
         Vector3 distanceVector = fireDirectionVector * ammoSpeed * Time.deltaTime;
 
         transform.position += distanceVector;
+
         ammoRange -= distanceVector.magnitude;
 
         if (ammoRange < 0f)
@@ -63,12 +64,10 @@ public class Ammo : MonoBehaviour, IFireable
         Vector3 weaponAimDirectionVector, bool overrideAmmoMovement = false)
     {
         this.ammoDetails = ammoDetails;
-        spriteRenderer.sprite = ammoDetails.ammoSprite;
-        ammoRange = ammoDetails.ammoRange;
-        this.ammoSpeed = ammoSpeed;
-        this.overrideAmmoMovement = overrideAmmoMovement;
 
         SetFireDirection(ammoDetails, aimAngle, weaponAimAngle, weaponAimDirectionVector);
+
+        spriteRenderer.sprite = ammoDetails.ammoSprite;
 
         if (ammoDetails.ammoChargeTime > 0f)
         {
@@ -78,10 +77,16 @@ public class Ammo : MonoBehaviour, IFireable
         }
         else
         {
-            ammoChargeTimer = 1f;
+            ammoChargeTimer = 0f;
             SetAmmoMaterial(ammoDetails.ammoMaterial);
             isAmmoMaterialSet = true;
         }
+
+        ammoRange = ammoDetails.ammoRange;
+
+        this.ammoSpeed = ammoSpeed;
+
+        this.overrideAmmoMovement = overrideAmmoMovement;
 
         gameObject.SetActive(true);
 
@@ -117,8 +122,10 @@ public class Ammo : MonoBehaviour, IFireable
         }
 
         fireDirectionAngle += spreadToggle * randomSpread;
+
         transform.eulerAngles = new Vector3(0f, 0f, fireDirectionAngle);
-        fireDirectionVector = HelperUtilities.GetDirectionVectorFronAngle(fireDirectionAngle);
+
+        fireDirectionVector = HelperUtilities.GetDirectionVectorFromAngle(fireDirectionAngle);
     }
 
     private void SetAmmoMaterial(Material ammoMaterial)

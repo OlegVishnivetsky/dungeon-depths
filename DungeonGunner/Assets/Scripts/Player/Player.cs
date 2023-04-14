@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.Collections.Generic;
-using System;
 
 [DisallowMultipleComponent]
 #region RequireComponents
@@ -19,6 +18,9 @@ using System;
 [RequireComponent(typeof(SetActiveWeaponEvent))]
 [RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(AimWeapon))]
+[RequireComponent(typeof(FireWeaponEvent))]
+[RequireComponent(typeof(FireWeapon))]
+[RequireComponent(typeof(WeaponFiredEvent))]
 [RequireComponent(typeof(SortingGroup))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public Health health;
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
+    [HideInInspector] public FireWeaponEvent fireWeaponEvent;
+    [HideInInspector] public WeaponFiredEvent weaponFiredEvent;
     [HideInInspector] public SetActiveWeaponEvent setActiveWeaponEvent;
     [HideInInspector] public ActiveWeapon activeWeapon;
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
@@ -47,6 +51,8 @@ public class Player : MonoBehaviour
         health = GetComponent<Health>();
         idleEvent = GetComponent<IdleEvent>();
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
+        fireWeaponEvent = GetComponent<FireWeaponEvent>();
+        weaponFiredEvent = GetComponent<WeaponFiredEvent>();
         setActiveWeaponEvent = GetComponent<SetActiveWeaponEvent>();
         activeWeapon = GetComponent<ActiveWeapon>();
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
