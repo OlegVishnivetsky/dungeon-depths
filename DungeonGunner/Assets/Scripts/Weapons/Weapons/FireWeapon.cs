@@ -3,19 +3,21 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(ActiveWeapon))]
 [RequireComponent(typeof(FireWeaponEvent))]
+[RequireComponent(typeof(ReloadWeaponEvent))]
 [RequireComponent(typeof(WeaponFiredEvent))]
 public class FireWeapon : MonoBehaviour
 {
+    private float fireRateCoolDownTimer = 0f;
     private ActiveWeapon activeWeapon;
     private FireWeaponEvent fireWeaponEvent;
+    private ReloadWeaponEvent reloadWeaponEvent;
     private WeaponFiredEvent weaponFiredEvent;
-
-    private float fireRateCooldownTimer = 0f;
 
     private void Awake()
     {
         activeWeapon = GetComponent<ActiveWeapon>();
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
+        reloadWeaponEvent = GetComponent<ReloadWeaponEvent>();
         weaponFiredEvent = GetComponent<WeaponFiredEvent>();
     }
 
@@ -31,25 +33,46 @@ public class FireWeapon : MonoBehaviour
 
     private void Update()
     {
-        fireRateCooldownTimer -= Time.deltaTime;
+        fireRateCoolDownTimer -= Time.deltaTime;
     }
 
-    private void FireWeaponEvent_OnFireWeapon(FireWeaponEvent fireWeaponEvent, FireWeaponEventArgs fireWeaponArgs)
+    private void FireWeaponEvent_OnFireWeapon(FireWeaponEvent fireWeaponEvent, FireWeaponEventArgs fireWeaponEventArgs)
     {
-        WeaponFire(fireWeaponArgs);
+        WeaponFire(fireWeaponEventArgs);
     }
 
-    private void WeaponFire(FireWeaponEventArgs fireWeaponArgs)
+    private void WeaponFire(FireWeaponEventArgs fireWeaponEventArgs)
     {
-        if (fireWeaponArgs.fire)
+        if (fireWeaponEventArgs.fire)
         {
             if (IsWeaponReadyToFire())
             {
-                FireAmmo(fireWeaponArgs.aimAngle, fireWeaponArgs.weaponAimAngle, 
-                    fireWeaponArgs.weaponAimDirectionVector);
-                ResetCooldownTimer();
+                FireAmmo(fireWeaponEventArgs.aimAngle, fireWeaponEventArgs.weaponAimAngle, fireWeaponEventArgs.weaponAimDirectionVector);
+
+                ResetCoolDownTimer();
             }
         }
+    }
+
+    private bool IsWeaponReadyToFire()
+    {
+        if (activeWeapon.GetCurrentWeapon().weaponRemainingAmmo <= 0 && !activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteAmmo)
+            return false;
+
+        if (activeWeapon.GetCurrentWeapon().isWeaponReloading)
+            return false;
+
+        if (fireRateCoolDownTimer > 0f)
+            return false;
+
+        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity && activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0)
+        {
+            reloadWeaponEvent.CallReloadWeaponEvent(activeWeapon.GetCurrentWeapon(), 0);
+
+            return false;
+        }
+
+        return true;
     }
 
     private void FireAmmo(float aimAngle, float weaponAimAngle, Vector3 weaponAimDirectionVector)
@@ -62,11 +85,11 @@ public class FireWeapon : MonoBehaviour
 
             float ammoSpeed = Random.Range(currentAmmo.ammoSpeedMin, currentAmmo.ammoSpeedMax);
 
-            IFireable ammo = (IFireable)PoolManager.Instance.ReuseComponent(ammoPrefab, activeWeapon.GetWeaponShootPosition(),
-                Quaternion.identity);
-            ammo.InitializeAmmo(currentAmmo, aimAngle, weaponAimAngle, ammoSpeed, weaponAimDirectionVector);
+            IFireable ammo = (IFireable)PoolManager.Instance.ReuseComponent(ammoPrefab, activeWeapon.GetShootPosition(), Quaternion.identity);
 
-            if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteAmmo)
+            ammo.InitialiseAmmo(currentAmmo, aimAngle, weaponAimAngle, ammoSpeed, weaponAimDirectionVector);
+
+            if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity)
             {
                 activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo--;
                 activeWeapon.GetCurrentWeapon().weaponRemainingAmmo--;
@@ -76,34 +99,8 @@ public class FireWeapon : MonoBehaviour
         }
     }
 
-    private bool IsWeaponReadyToFire()
+    private void ResetCoolDownTimer()
     {
-        if (activeWeapon.GetCurrentWeapon().weaponRemainingAmmo <= 0 && !activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteAmmo)
-        {
-            return false;
-        }
-
-        if (activeWeapon.GetCurrentWeapon().isWeaponReloading)
-        {
-            return false;
-        }
-
-        if (fireRateCooldownTimer > 0f)
-        {
-            return false;
-        }
-
-        if (!activeWeapon.GetCurrentWeapon().weaponDetails.hasInfiniteClipCapacity && 
-            activeWeapon.GetCurrentWeapon().weaponClipRemainingAmmo <= 0)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    private void ResetCooldownTimer()
-    {
-        fireRateCooldownTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponFireRate;
+        fireRateCoolDownTimer = activeWeapon.GetCurrentWeapon().weaponDetails.weaponFireRate;
     }
 }

@@ -60,7 +60,7 @@ public class Ammo : MonoBehaviour, IFireable
         return gameObject;
     }
 
-    public void InitializeAmmo(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed,
+    public void InitialiseAmmo(AmmoDetailsSO ammoDetails, float aimAngle, float weaponAimAngle, float ammoSpeed,
         Vector3 weaponAimDirectionVector, bool overrideAmmoMovement = false)
     {
         this.ammoDetails = ammoDetails;

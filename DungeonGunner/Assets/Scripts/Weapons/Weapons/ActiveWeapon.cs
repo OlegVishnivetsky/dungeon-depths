@@ -7,7 +7,7 @@ public class ActiveWeapon : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer weaponSpriteRenderer;
     [SerializeField] private PolygonCollider2D weaponPolygonCollider2D;
-    [SerializeField] private Transform weaponShootPositionTransfrom;
+    [SerializeField] private Transform weaponShootPositionTransform;
     [SerializeField] private Transform weaponEffectPositionTransfrom; 
     
     private SetActiveWeaponEvent setWeaponEvent;
@@ -44,9 +44,9 @@ public class ActiveWeapon : MonoBehaviour
         currentWeapon = null;
     }
 
-    public Vector3 GetWeaponShootPosition()
+    public Vector3 GetShootPosition()
     {
-        return weaponShootPositionTransfrom.position;
+        return weaponShootPositionTransform.position;
     }
 
     public Vector3 GetWeaponEffectPosition()
@@ -73,6 +73,6 @@ public class ActiveWeapon : MonoBehaviour
             weaponPolygonCollider2D.points = spritePhysicsShapePointsList.ToArray();
         }
 
-        weaponShootPositionTransfrom.localPosition = weapon.weaponDetails.weaponShootPosition;
+        weaponShootPositionTransform.localPosition = weapon.weaponDetails.weaponShootPosition;
     }
 }
