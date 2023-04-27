@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -104,7 +105,7 @@ public class PlayerControl : MonoBehaviour
 
         while (Vector3.Distance(player.transform.position, targetPosition) > minDistance)
         {
-            player.movementToPositionEvent.InvokeMovementToPositionEvent(targetPosition, 
+            player.movementToPositionEvent.InvokeMovementToPositionEvent(targetPosition,
                 player.transform.position, direction, movementDetails.rollSpeed, isPlayerRolling);
 
             yield return waitForFixedUpdate;
@@ -131,6 +132,7 @@ public class PlayerControl : MonoBehaviour
 
         AimWeaponInput(out weaponDirection, out weaponAngleDegrees, out playerAngleDegrees, out playerAimDirection);
         FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
+        SwitchWeaponInput();
         ReloadWeaponInput();
     }
 
@@ -155,7 +157,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            player.fireWeaponEvent.InvokeFireWeaponEvent(true, leftMousePreviousFrame, playerAimDirection, 
+            player.fireWeaponEvent.InvokeFireWeaponEvent(true, leftMousePreviousFrame, playerAimDirection,
                 playerAngleDegrees, weaponAngleDegrees, weaponDirection);
             leftMousePreviousFrame = true;
         }
@@ -163,6 +165,115 @@ public class PlayerControl : MonoBehaviour
         {
             leftMousePreviousFrame = false;
         }
+    }
+
+    private void SwitchWeaponInput()
+    {
+        if (Input.mouseScrollDelta.y < 0f)
+        {
+            PreviousWeapon();
+        }
+        if (Input.mouseScrollDelta.y > 0f)
+        {
+            NextWeapon();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetWeaponByIndex(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetWeaponByIndex(2);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetWeaponByIndex(3);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SetWeaponByIndex(4);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SetWeaponByIndex(5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            SetWeaponByIndex(6);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            SetWeaponByIndex(7);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            SetWeaponByIndex(8);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SetWeaponByIndex(9);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            SetWeaponByIndex(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            SetCurrentWeaponToFirstInTheList();
+        }
+    }
+
+    private void PreviousWeapon()
+    {
+        currentWeaponIndex--;
+
+        if (currentWeaponIndex < 1)
+        {
+            currentWeaponIndex = player.weaponList.Count;
+        }
+
+        SetWeaponByIndex(currentWeaponIndex);
+    }
+
+    private void NextWeapon()
+    {
+        currentWeaponIndex++;
+
+        if (currentWeaponIndex > player.weaponList.Count)
+        {
+            currentWeaponIndex = 1;
+        }
+
+        SetWeaponByIndex(currentWeaponIndex);
+    }
+
+    private void SetCurrentWeaponToFirstInTheList()
+    {
+        List<Weapon> tempWeaponList = new List<Weapon>();
+
+        Weapon currentWeapon = player.weaponList[currentWeaponIndex - 1];
+        currentWeapon.weaponListPosition = 1;
+        tempWeaponList.Add(currentWeapon);
+
+        int index = 2;
+
+        foreach (Weapon weapon in player.weaponList)
+        {
+            if (weapon == currentWeapon)
+            {
+                continue;
+            }
+
+            tempWeaponList.Add(weapon);
+            weapon.weaponListPosition = index;
+            index++;
+        }
+
+        player.weaponList = tempWeaponList;
+        currentWeaponIndex = 1;
+        SetWeaponByIndex(currentWeaponIndex);
     }
 
     private void SetWeaponByIndex(int weaponIndex)
