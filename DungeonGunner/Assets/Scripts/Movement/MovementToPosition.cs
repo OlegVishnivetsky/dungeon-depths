@@ -2,7 +2,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent (typeof(MovementToPositionEvent))]
+[RequireComponent(typeof(MovementToPositionEvent))]
 public class MovementToPosition : MonoBehaviour
 {
     private new Rigidbody2D rigidbody2D;
@@ -24,7 +24,7 @@ public class MovementToPosition : MonoBehaviour
         movementToPositionEvent.OnMovementToPosition -= MovementToPositionEvent_OnMovementToPosition;
     }
 
-    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent, 
+    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent,
         MovementToPositionEventArgs movementToPositionArgs)
     {
         MoveRigidbody(movementToPositionArgs.movePosition, movementToPositionArgs.currentPosition, movementToPositionArgs.moveSpeed);

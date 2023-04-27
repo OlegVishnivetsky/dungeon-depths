@@ -10,6 +10,7 @@ public class WeaponDetailsSO : ScriptableObject
 
     [Header("WEAPON CONFIGURATION")]
     public Vector3 weaponShootPosition;
+
     public AmmoDetailsSO weaponCurrentAmmo;
 
     [Header("WEAPON OPERATING VALUES")]

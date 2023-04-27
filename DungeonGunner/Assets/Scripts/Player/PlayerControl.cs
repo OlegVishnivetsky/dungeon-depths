@@ -8,6 +8,7 @@ public class PlayerControl : MonoBehaviour
     [SerializeField] private MovementDetailsSO movementDetails;
 
     private Player player;
+    private bool leftMousePreviousFrame = false;
     private int currentWeaponIndex = 1;
     private float moveSpeed;
     private Coroutine playerRollCoroutine;
@@ -103,7 +104,8 @@ public class PlayerControl : MonoBehaviour
 
         while (Vector3.Distance(player.transform.position, targetPosition) > minDistance)
         {
-            player.movementToPositionEvent.InvokeMovementToPositionEvent(targetPosition, player.transform.position, direction, movementDetails.rollSpeed, isPlayerRolling);
+            player.movementToPositionEvent.InvokeMovementToPositionEvent(targetPosition, 
+                player.transform.position, direction, movementDetails.rollSpeed, isPlayerRolling);
 
             yield return waitForFixedUpdate;
         }
@@ -153,7 +155,13 @@ public class PlayerControl : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            player.fireWeaponEvent.InvokeFireWeaponEvent(true, playerAimDirection, playerAngleDegrees, weaponAngleDegrees, weaponDirection);
+            player.fireWeaponEvent.InvokeFireWeaponEvent(true, leftMousePreviousFrame, playerAimDirection, 
+                playerAngleDegrees, weaponAngleDegrees, weaponDirection);
+            leftMousePreviousFrame = true;
+        }
+        else
+        {
+            leftMousePreviousFrame = false;
         }
     }
 

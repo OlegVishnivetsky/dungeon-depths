@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class Weapon
 {
     public WeaponDetailsSO weaponDetails;

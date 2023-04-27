@@ -6,7 +6,7 @@ public class MovementToPositionEvent : MonoBehaviour
 {
     public event Action<MovementToPositionEvent, MovementToPositionEventArgs> OnMovementToPosition;
 
-    public void InvokeMovementToPositionEvent(Vector2 movePosition, Vector2 currentPosition, Vector2 moveDirection, float moveSpeed, 
+    public void InvokeMovementToPositionEvent(Vector2 movePosition, Vector2 currentPosition, Vector2 moveDirection, float moveSpeed,
         bool isRolling = false)
     {
         OnMovementToPosition?.Invoke(this, new MovementToPositionEventArgs(movePosition, currentPosition, moveDirection, moveSpeed, isRolling));

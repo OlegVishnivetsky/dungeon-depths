@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d385a63308166e54eb98bb533c1af32d, type: 3}
-  m_Name: WeaponDetails_Pistol
+  m_Name: WeaponDetails_Revolver
   m_EditorClassIdentifier: 
-  weaponName: Pistol
-  weaponSprite: {fileID: 21300000, guid: abbe40c4d6a803f42a7c4f53404a484d, type: 3}
-  weaponShootPosition: {x: 1.115, y: 0.277, z: 0}
-  weaponCurrentAmmo: {fileID: 11400000, guid: 38ad40e1f34ed5345bb42f8efdf0fbfd, type: 2}
-  hasInfiniteAmmo: 1
+  weaponName: Revolver
+  weaponSprite: {fileID: 21300000, guid: 29bc0107bc11191468ed7d175994fb5b, type: 3}
+  weaponShootPosition: {x: 1.15, y: 0.329, z: 0}
+  weaponCurrentAmmo: {fileID: 11400000, guid: f6b6406e282d9204588134a30088e6bc, type: 2}
+  hasInfiniteAmmo: 0
   hasInfiniteClipCapacity: 0
-  weaponClipAmmoCapacity: 4
-  weaponAmmoCapacity: 0
-  weaponFireRate: 0.25
+  weaponClipAmmoCapacity: 6
+  weaponAmmoCapacity: 40
+  weaponFireRate: 0.3
   weaponPreChargeTime: 0
-  weaponReloadTime: 1
+  weaponReloadTime: 1.9

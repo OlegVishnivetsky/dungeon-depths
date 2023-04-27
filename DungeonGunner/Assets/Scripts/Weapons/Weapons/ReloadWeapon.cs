@@ -90,7 +90,6 @@ public class ReloadWeapon : MonoBehaviour
         weapon.isWeaponReloading = false;
 
         weaponReloadedEvent.CallWeaponReloadedEvent(weapon);
-
     }
 
     private void SetActiveWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent setActiveWeaponEvent, SetActiveWeaponEventArgs setActiveWeaponEventArgs)

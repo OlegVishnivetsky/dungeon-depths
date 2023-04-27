@@ -1,10 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using System.Collections.Generic;
 
 [DisallowMultipleComponent]
-#region RequireComponents
-
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(PlayerControl))]
 [RequireComponent(typeof(AnimatePlayer))]
@@ -30,8 +28,6 @@ using System.Collections.Generic;
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-
-#endregion
 public class Player : MonoBehaviour
 {
     [HideInInspector] public PlayerDetailsSO playerDetails;
@@ -88,8 +84,15 @@ public class Player : MonoBehaviour
 
     public Weapon AddWeaponToPlayer(WeaponDetailsSO weaponDetails)
     {
-        Weapon weapon = new Weapon() { weaponDetails = weaponDetails, weaponReloadTimer = 0f, weaponClipRemainingAmmo =
-            weaponDetails.weaponClipAmmoCapacity, weaponRemainingAmmo = weaponDetails.weaponAmmoCapacity, isWeaponReloading = false };
+        Weapon weapon = new Weapon()
+        {
+            weaponDetails = weaponDetails,
+            weaponReloadTimer = 0f,
+            weaponClipRemainingAmmo =
+            weaponDetails.weaponClipAmmoCapacity,
+            weaponRemainingAmmo = weaponDetails.weaponAmmoCapacity,
+            isWeaponReloading = false
+        };
 
         weaponList.Add(weapon);
         weapon.weaponListPosition = weaponList.Count;

@@ -8,8 +8,8 @@ public class ActiveWeapon : MonoBehaviour
     [SerializeField] private SpriteRenderer weaponSpriteRenderer;
     [SerializeField] private PolygonCollider2D weaponPolygonCollider2D;
     [SerializeField] private Transform weaponShootPositionTransform;
-    [SerializeField] private Transform weaponEffectPositionTransfrom; 
-    
+    [SerializeField] private Transform weaponEffectPositionTransfrom;
+
     private SetActiveWeaponEvent setWeaponEvent;
     private Weapon currentWeapon;
 
@@ -28,7 +28,7 @@ public class ActiveWeapon : MonoBehaviour
         setWeaponEvent.OnSetActiveWeapon -= SetWeaponEvent_OnSetActiveWeapon;
     }
 
-    private void SetWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent SetActiveWeaponEvent, 
+    private void SetWeaponEvent_OnSetActiveWeapon(SetActiveWeaponEvent SetActiveWeaponEvent,
         SetActiveWeaponEventArgs setActiveWeaponArgs)
     {
         SetWeapon(setActiveWeaponArgs.weapon);

@@ -12,7 +12,6 @@ public class ReloadWeaponEvent : MonoBehaviour
     }
 }
 
-
 public class ReloadWeaponEventArgs : EventArgs
 {
     public Weapon weapon;

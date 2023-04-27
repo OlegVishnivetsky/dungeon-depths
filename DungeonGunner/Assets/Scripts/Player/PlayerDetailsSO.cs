@@ -15,6 +15,7 @@ public class PlayerDetailsSO : ScriptableObject
 
     [Header("WEAPON")]
     public WeaponDetailsSO startingWeapon;
+
     public List<WeaponDetailsSO> startingWeaponList;
 
     [Header("OTHER")]
