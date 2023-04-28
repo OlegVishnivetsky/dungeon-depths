@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class GameResources : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class GameResources : MonoBehaviour
 
     [Header("UI")]
     public GameObject ammoIconPrefab;
+
+    [Header("SOUNDS")]
+    public AudioMixerGroup soundsMasterMixerGroup;
+    public SoundEffectSO doorOpenCloseSoundEffect;
 
     #region Validation
 

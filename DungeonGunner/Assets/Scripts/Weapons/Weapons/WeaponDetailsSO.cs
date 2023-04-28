@@ -13,6 +13,10 @@ public class WeaponDetailsSO : ScriptableObject
 
     public AmmoDetailsSO weaponCurrentAmmo;
 
+    [Header("WEAPON SOUNDS")]
+    public SoundEffectSO weaponFireSoundEffect;
+    public SoundEffectSO weaponReloadSoundEffect;
+
     [Header("WEAPON OPERATING VALUES")]
     public bool hasInfiniteAmmo = false;
 
