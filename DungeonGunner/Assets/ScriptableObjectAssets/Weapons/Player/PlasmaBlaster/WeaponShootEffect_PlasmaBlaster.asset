@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0a0ff0ff14c99246a273ea746386791, type: 3}
+  m_Name: WeaponShootEffect_PlasmaBlaster
+  m_EditorClassIdentifier: 
+  colorGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 0.9137255}
+    key1: {r: 0, g: 0.895936, b: 1, a: 0.94036907}
+    key2: {r: 0.07843137, g: 0.25042218, b: 1, a: 0.94189125}
+    key3: {r: 0, g: 0.15865272, b: 0.8679245, a: 1}
+    key4: {r: 1, g: 1, b: 1, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 7710
+    ctime2: 18311
+    ctime3: 48766
+    ctime4: 65535
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 20239
+    atime2: 48766
+    atime3: 65535
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 4
+  duration: 0.1
+  startParticleSize: 0.3
+  startParticleSpeed: 10
+  startLifetime: 1.5
+  maxParticleNumber: 25
+  emissionRate: 0
+  burstParticleNumber: 25
+  effectGravity: -0.01
+  sprite: {fileID: 21300000, guid: bb7ccf2391a6a544ab96e81e36b6a0ed, type: 3}
+  velocityOverLifetimeMin: {x: 0, y: 0, z: 0}
+  velocityOverLifetimeMax: {x: 0, y: 0, z: 0}
+  weaponShootEffectPrefab: {fileID: 5298060012663198051, guid: 92435ed561a10084db6fd9d38ff2633c, type: 3}

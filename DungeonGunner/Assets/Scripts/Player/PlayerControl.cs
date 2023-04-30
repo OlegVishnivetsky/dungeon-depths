@@ -278,7 +278,7 @@ public class PlayerControl : MonoBehaviour
 
     private void SetWeaponByIndex(int weaponIndex)
     {
-        if (weaponIndex - 1 < player.weaponList.Count)
+        if (weaponIndex - 1 < player.weaponList.Count && weaponIndex != 0)
         {
             currentWeaponIndex = weaponIndex;
             player.setActiveWeaponEvent.InvokeSetActiveWeaponEvent(player.weaponList[weaponIndex - 1]);

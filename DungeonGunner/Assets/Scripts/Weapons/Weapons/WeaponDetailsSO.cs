@@ -13,6 +13,8 @@ public class WeaponDetailsSO : ScriptableObject
 
     public AmmoDetailsSO weaponCurrentAmmo;
 
+    public WeaponShootEffectSO weaponShootEffect;
+
     [Header("WEAPON SOUNDS")]
     public SoundEffectSO weaponFireSoundEffect;
     public SoundEffectSO weaponReloadSoundEffect;

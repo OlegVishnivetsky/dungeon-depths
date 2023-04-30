@@ -49,7 +49,7 @@ public class ActiveWeapon : MonoBehaviour
         return weaponShootPositionTransform.position;
     }
 
-    public Vector3 GetWeaponEffectPosition()
+    public Vector3 GetWeaponShootEffectPosition()
     {
         return weaponEffectPositionTransfrom.position;
     }
