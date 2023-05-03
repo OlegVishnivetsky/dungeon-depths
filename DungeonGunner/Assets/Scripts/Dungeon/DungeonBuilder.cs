@@ -98,8 +98,7 @@ public class DungeonBuilder : SingletonMonobehaviour<DungeonBuilder>
         }
         else
         {
-            Debug.Log("No Entrance Node");
-            return false;  // Dungeon Not Built
+            return false;
         }
 
         bool noRoomOverlaps = true;

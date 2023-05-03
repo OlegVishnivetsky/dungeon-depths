@@ -56,6 +56,13 @@ public static class Settings
 
     #endregion FIRING CONTROL
 
+    #region ASTAR PATHFINDING PARAMETERS
+
+    public const int defaultAStarMovementPenalty = 40;
+    public const int preferredPathAStartMovementPenalty = 1;
+
+    #endregion
+
     #region UI PARAMETERS
 
     public const float uiAmmoIconSpacing = 4f;

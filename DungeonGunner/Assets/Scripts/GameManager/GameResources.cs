@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Tilemaps;
 
 public class GameResources : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class GameResources : MonoBehaviour
 
     [Header("SHADERS")]
     public Shader variableLitShader;
+
+    [Header("SPECIAL TILEMAP TILES")]
+    public TileBase[] enemyUnwalkableCollisionTilesArray;
+    public TileBase preferredEnemyPathTile;
 
     [Header("UI")]
     public GameObject ammoIconPrefab;

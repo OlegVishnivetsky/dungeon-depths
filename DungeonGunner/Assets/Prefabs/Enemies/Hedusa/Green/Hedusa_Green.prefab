@@ -115,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[9].y
       value: 0.18401712
       objectReference: {fileID: 0}
+    - target: {fileID: 1605963608985882225, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 19b6ff9fbadc74e479b63068d33eb245, type: 2}
     - target: {fileID: 3916417910386492322, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
       propertyPath: m_Name
       value: Hedusa_Green

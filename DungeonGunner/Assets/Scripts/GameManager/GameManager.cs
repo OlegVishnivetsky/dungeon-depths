@@ -41,11 +41,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void Update()
     {
         HandleGameState();
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            gameState = GameState.GameStarted;
-        }
     }
 
     public Player GetPlayer()
