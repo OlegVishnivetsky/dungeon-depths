@@ -123,6 +123,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hedusa_Red
       objectReference: {fileID: 0}
+    - target: {fileID: 7712521600789672283, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d41e04338b70db4f8d6eac6d3ce4a74, type: 2}
+    - target: {fileID: 8159646201163851770, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 4def61f6081cd20478b738a477958344, type: 2}
     - target: {fileID: 8543631161975978791, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
       propertyPath: m_RootOrder
       value: 0

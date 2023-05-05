@@ -1,8 +1,12 @@
 using UnityEngine;
 using UnityEngine.Rendering;
-using System.Collections;
 
 [DisallowMultipleComponent]
+[RequireComponent(typeof(Idle))]
+[RequireComponent(typeof(IdleEvent))]
+[RequireComponent(typeof(MovementToPosition))]
+[RequireComponent(typeof(MovementToPositionEvent))]
+[RequireComponent(typeof(EnemyMovementAI))]
 [RequireComponent(typeof(SortingGroup))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
@@ -11,16 +15,22 @@ using System.Collections;
 [RequireComponent(typeof(PolygonCollider2D))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyDetailsSO enemyDetails;
+    public EnemyDetailsSO enemyDetails;
 
+    private EnemyMovementAI enemyMovementAI;
     private CircleCollider2D circleCollider2D;
     private PolygonCollider2D polygonCollider2D;
 
+    [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
+    [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public SpriteRenderer[] spriteRenderers;
     [HideInInspector] public Animator animator;
 
     private void Awake()
     {
+        enemyMovementAI = GetComponent<EnemyMovementAI>();
+        movementToPositionEvent = GetComponent<MovementToPositionEvent>();
+        idleEvent = GetComponent<IdleEvent>();
         circleCollider2D = GetComponent<CircleCollider2D>();
         polygonCollider2D = GetComponent<PolygonCollider2D>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();

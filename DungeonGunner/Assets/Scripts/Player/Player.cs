@@ -105,4 +105,9 @@ public class Player : MonoBehaviour
     {
         health.SetStartingHealth(playerDetails.playerHealth);
     }
+
+    public Vector3 GetPlayerPosition()
+    {
+        return transform.position;
+    }
 }

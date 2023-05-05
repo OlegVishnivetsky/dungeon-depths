@@ -123,6 +123,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hedusa_Green
       objectReference: {fileID: 0}
+    - target: {fileID: 7712521600789672283, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 52064746266c659469383420d3ed7606, type: 2}
+    - target: {fileID: 8159646201163851770, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c50370e5f2707941a7f2b4a7753c78a, type: 2}
     - target: {fileID: 8543631161975978791, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
       propertyPath: m_RootOrder
       value: 0

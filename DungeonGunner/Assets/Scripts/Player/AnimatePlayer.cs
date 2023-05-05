@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -41,13 +40,13 @@ public class AnimatePlayer : MonoBehaviour
         SetAimAnimationParameters(aimWeaponEventArgs.aimDirection);
     }
 
-    private void MovementByVelocityEvent_OnMovementByVelocity(MovementByVelocityEvent movementByVelocityEvent, 
+    private void MovementByVelocityEvent_OnMovementByVelocity(MovementByVelocityEvent movementByVelocityEvent,
         MovementByVelocityEventArgs movementByVelocityArgs)
     {
         SetMovementAnimationParameters(movementByVelocityArgs.moveDirection);
     }
 
-    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent, 
+    private void MovementToPositionEvent_OnMovementToPosition(MovementToPositionEvent movementToPositionEvent,
         MovementToPositionEventArgs movementToPositionArgs)
     {
         InitializeAimAnimationParameters();
@@ -106,8 +105,6 @@ public class AnimatePlayer : MonoBehaviour
                 player.animator.SetBool(Settings.rollDown, true);
             }
         }
-
-        
     }
 
     private void SetAimAnimationParameters(AimDirection aimDirection)

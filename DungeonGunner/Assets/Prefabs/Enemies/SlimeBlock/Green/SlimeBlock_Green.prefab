@@ -91,6 +91,14 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7712521600789672283, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
+      propertyPath: movementDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: b3e36fb1d8fd44b478724d3909e0b1b0, type: 2}
+    - target: {fileID: 8159646201163851770, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
+      propertyPath: enemyDetails
+      value: 
+      objectReference: {fileID: 11400000, guid: 9d3ec680add723d4c8476d0557e8e08c, type: 2}
     - target: {fileID: 8543631161975978791, guid: d9c1fc9df73350e45a23633af1d833ab, type: 3}
       propertyPath: m_RootOrder
       value: 0
