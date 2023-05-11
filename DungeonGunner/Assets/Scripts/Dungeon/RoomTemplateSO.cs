@@ -20,6 +20,10 @@ public class RoomTemplateSO : ScriptableObject
 
     public Vector2Int[] spawnPositionArray;
 
+    [Header("ENEMY DETAILS")]
+    public List<SpawnableObjectByLevel<EnemyDetailsSO>> enemiesByLevelList;
+    public List<RoomEnemySpawnParameters> roomEnemySpawnParametersList;
+
     public List<Doorway> GetDoorwayList()
     {
         return doorwayList;

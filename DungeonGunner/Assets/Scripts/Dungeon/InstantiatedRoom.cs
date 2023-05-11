@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -267,5 +266,22 @@ public class InstantiatedRoom : MonoBehaviour
             doorObject.transform.localPosition = position;
             return doorObject;
         }
+    }
+
+    public void LockDoors()
+    {
+        Door[] doorArray = GetComponentsInChildren<Door>();
+
+        foreach (Door door in doorArray)
+        {
+            door.LockDoor();
+        }
+
+        DisableRoomCollider();
+    }
+
+    private void DisableRoomCollider()
+    {
+        boxCollider2D.enabled = false;
     }
 }

@@ -40,6 +40,7 @@ public static class Settings
     public static int openDoor = Animator.StringToHash("open");
 
     public static float baseSpeedForPlayerAnimation = 8f;
+    public static float baseSpeedForEnemyAnimation = 3f;
 
     #endregion ANIMATOR PARAMETERS
 
