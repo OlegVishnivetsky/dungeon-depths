@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Skull Face Blue
   enemyPrefab: {fileID: 549886591047537727, guid: 2b68b08e7e08aec4e9ae5ebb7cdcdf9c, type: 3}
+  chaseDistance: 50
+  enemyStandartMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  enemyMaterializeTime: 2
+  enemyMaterializeShader: {fileID: -6465566751694194690, guid: 5fec8f8e6ea244648a3c6ede24a56288, type: 3}
+  enemyMaterializeColor: {r: 8.47419, g: 0, b: 6.1670804, a: 1}
