@@ -21,7 +21,7 @@ MonoBehaviour:
   doorwayList:
   - position: {x: 25, y: 29}
     orientation: 0
-    doorPrefab: {fileID: 5975343921119929813, guid: b71c3ea48f7a16546905f813d86fdf12, type: 3}
+    doorPrefab: {fileID: 3883239902703032739, guid: f297968eec20bf44ebaa22b15281b00f, type: 3}
     doorwayStartCopyPosition: {x: 22, y: 29}
     doorwayCopyTileWidth: 5
     doorwayCopyTileHeight: 9
@@ -29,7 +29,7 @@ MonoBehaviour:
     isUnavailable: 0
   - position: {x: 25, y: 4}
     orientation: 2
-    doorPrefab: {fileID: 5975343921119929813, guid: b71c3ea48f7a16546905f813d86fdf12, type: 3}
+    doorPrefab: {fileID: 3883239902703032739, guid: f297968eec20bf44ebaa22b15281b00f, type: 3}
     doorwayStartCopyPosition: {x: 22, y: 7}
     doorwayCopyTileWidth: 5
     doorwayCopyTileHeight: 4
@@ -56,3 +56,5 @@ MonoBehaviour:
   - {x: 20, y: 13}
   - {x: 32, y: 14}
   - {x: 25, y: 8}
+  enemiesByLevelList: []
+  roomEnemySpawnParametersList: []

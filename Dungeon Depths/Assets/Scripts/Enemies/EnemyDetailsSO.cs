@@ -17,4 +17,13 @@ public class EnemyDetailsSO : ScriptableObject
     public float enemyMaterializeTime;
     public Shader enemyMaterializeShader;
     [ColorUsage(true, true)] public Color enemyMaterializeColor;
+
+    [Space(10)]
+    [Header("ENEMY WEAPON SETTINGS")]
+    public WeaponDetailsSO enemyWeapon;
+    public float firingIntervalMin;
+    public float firingIntervalMax;
+    public float firingDurationMin;
+    public float firingDurationMax;
+    public bool firingLineOfSightRequired;
 }

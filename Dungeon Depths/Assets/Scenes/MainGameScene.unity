@@ -425,7 +425,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 960, y: 540}
+  m_SizeDelta: {x: 1200, y: 700}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &245536810
 MonoBehaviour:
@@ -796,7 +796,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a8cfb7a1001b2b4bb28df71ea197614, type: 2}
   - {fileID: 11400000, guid: db97eef24629a514999b7535e9a88f4f, type: 2}
   - {fileID: 11400000, guid: 2a55dcbad3bc6f342a3564b4e9622784, type: 2}
-  currentDungeonLevelListIndex: 0
+  currentDungeonLevelListIndex: 2
   gameState: 0
   previousGameState: 0
 --- !u!4 &311630941
@@ -1194,6 +1194,9 @@ MonoBehaviour:
     componentType: IFireable
   - poolSize: 10
     prefab: {fileID: 2073251979253057746, guid: 7feac7aa94c1850498f5f280191fde2d, type: 3}
+    componentType: IFireable
+  - poolSize: 200
+    prefab: {fileID: 2073251979253057746, guid: 3e1c532797225394caf4d95dc5be33f9, type: 3}
     componentType: IFireable
   - poolSize: 40
     prefab: {fileID: 764877572855225480, guid: 46f09246ec3c40248a2e134d5758047b, type: 3}
