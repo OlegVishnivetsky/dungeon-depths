@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -280,8 +281,32 @@ public class InstantiatedRoom : MonoBehaviour
         DisableRoomCollider();
     }
 
+    public void UnlockDoors()
+    {
+        StartCoroutine(UnlockDoorsRoutine());
+    }
+
+    private IEnumerator UnlockDoorsRoutine()
+    {
+        yield return new WaitForSeconds(Settings.doorUnlockDelay);
+
+        Door[] doorArray = GetComponentsInChildren<Door>();
+
+        foreach (Door door in doorArray)
+        {
+            door.UnlockDoor();
+        }
+
+        EnableRoomCollider();
+    }
+
     private void DisableRoomCollider()
     {
         boxCollider2D.enabled = false;
+    }
+
+    private void EnableRoomCollider()
+    {
+        boxCollider2D.enabled = true;
     }
 }

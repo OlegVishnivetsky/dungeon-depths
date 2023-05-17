@@ -19,6 +19,7 @@ public static class Settings
     #region ROOM SETTINGS
 
     public const float fadeInTime = 0.5f;
+    public const float doorUnlockDelay = 1f;
     public const int maxChildCorridors = 3;
 
     #endregion ROOM SETTINGS
@@ -65,11 +66,24 @@ public static class Settings
     public const float playerMoveDistanceToRebuildPath = 3f;
     public const float enemyPathRebuildCooldown = 2f;
 
-    #endregion
+    #endregion ASTAR PATHFINDING PARAMETERS
+
+    #region ENEMY PARAMETERS
+
+    public const int enemyDeafaultHealth = 20;
+
+    #endregion ENEMY PARAMETERS
 
     #region UI PARAMETERS
 
+    public const float uiHeartSpacing = 22f;
     public const float uiAmmoIconSpacing = 4f;
 
-    #endregion
+    #endregion UI PARAMETERS
+
+    #region CONTACT DAMAGE PARAMETERS
+
+    public const float contactDamageCollisionResetDelay = 0.5f;
+
+    #endregion CONTACT DAMAGE PARAMETERS
 }

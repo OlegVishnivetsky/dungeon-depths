@@ -54,5 +54,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 98f177f8276c38b429705e6720c48672, type: 2}
   preferredEnemyPathTile: {fileID: 11400000, guid: 3ce5fb260af53d24887b55c3d50041e2, type: 2}
   ammoIconPrefab: {fileID: 6622634723754785565, guid: 9247717f5bc775a4184b044432351e12, type: 3}
+  heartImagePrefab: {fileID: 2396360765300899959, guid: c9edb920a7fb6224ebb47925a7d454ce, type: 3}
   soundsMasterMixerGroup: {fileID: -4734643798044506327, guid: 2ac509b551addfb48950fbdc0d9cefb4, type: 2}
   doorOpenCloseSoundEffect: {fileID: 11400000, guid: 6dcf2cdc606567c4bb70d55969bbd520, type: 2}

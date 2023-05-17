@@ -31,7 +31,10 @@ using UnityEngine.Rendering;
 public class Player : MonoBehaviour
 {
     [HideInInspector] public PlayerDetailsSO playerDetails;
+    [HideInInspector] public PlayerControl playerControl;
     [HideInInspector] public Health health;
+    [HideInInspector] public HealthEvent healthEvent;
+    [HideInInspector] public DestroyedEvent destroyedEvent;
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
     [HideInInspector] public FireWeaponEvent fireWeaponEvent;
@@ -49,7 +52,10 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        playerControl= GetComponent<PlayerControl>();
         health = GetComponent<Health>();
+        healthEvent = GetComponent<HealthEvent>();
+        destroyedEvent = GetComponent<DestroyedEvent>();
         idleEvent = GetComponent<IdleEvent>();
         aimWeaponEvent = GetComponent<AimWeaponEvent>();
         fireWeaponEvent = GetComponent<FireWeaponEvent>();
@@ -62,6 +68,16 @@ public class Player : MonoBehaviour
         movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        healthEvent.OnHealthChanged += HealthEvent_OnHealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        healthEvent.OnHealthChanged -= HealthEvent_OnHealthChanged;
     }
 
     public void Initialize(PlayerDetailsSO playerDetails)
@@ -79,6 +95,14 @@ public class Player : MonoBehaviour
         foreach (WeaponDetailsSO weaponDetails in playerDetails.startingWeaponList)
         {
             AddWeaponToPlayer(weaponDetails);
+        }
+    }
+
+    private void HealthEvent_OnHealthChanged(HealthEvent healthEvent, HealthEventArgs healthEventArgs)
+    {
+        if (healthEventArgs.healthAmount <= 0)
+        {
+            destroyedEvent.InvokeDestroyedEvent(true);
         }
     }
 

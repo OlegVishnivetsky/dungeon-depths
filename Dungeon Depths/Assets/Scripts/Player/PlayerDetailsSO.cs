@@ -12,6 +12,8 @@ public class PlayerDetailsSO : ScriptableObject
 
     [Header("HEALTH")]
     public int playerHealth;
+    public bool isImmuneAfterHit = true;
+    public float hitImmunityTime;
 
     [Header("WEAPON")]
     public WeaponDetailsSO startingWeapon;

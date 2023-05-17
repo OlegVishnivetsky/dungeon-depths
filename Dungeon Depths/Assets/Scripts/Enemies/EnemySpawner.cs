@@ -87,7 +87,6 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
                 yield return new WaitForSeconds(GetEnemySpawnInterval());
             }
         }
-
     }
 
     private void CreateEnemy(EnemyDetailsSO enemyDetails, Vector3 position)
@@ -99,6 +98,34 @@ public class EnemySpawner : SingletonMonobehaviour<EnemySpawner>
 
         GameObject enemy = Instantiate(enemyDetails.enemyPrefab, position, Quaternion.identity, transform);
         enemy.GetComponent<Enemy>().EnemyInitialization(enemyDetails, enemiesSpawnedSoFar, dungeonLevel);
+        enemy.GetComponent<DestroyedEvent>().OnDestroyed += EnemySpawner_OnDestroyed;
+    }
+
+    private void EnemySpawner_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs destroyedEventArgs)
+    {
+        destroyedEvent.OnDestroyed -= EnemySpawner_OnDestroyed;
+
+        currentEnemyCount--;
+
+        if (currentEnemyCount <= 0 && enemiesSpawnedSoFar == enemiesToSpawn)
+        {
+            currentRoom.isClearedOfEnemies = true;
+
+            if (GameManager.Instance.gameState == GameState.EngagingEnemies)
+            {
+                GameManager.Instance.gameState = GameState.PlayingLevel;
+                GameManager.Instance.previousGameState = GameState.EngagingEnemies;
+            }
+
+            else if (GameManager.Instance.gameState == GameState.EngagingBoss)
+            {
+                GameManager.Instance.gameState = GameState.BossStage;
+                GameManager.Instance.previousGameState = GameState.EngagingBoss;
+            }
+
+            currentRoom.instantiatedRoom.UnlockDoors();
+            StaticEventHandler.InvokeRoomEnemiesDefeatedEvent(currentRoom);
+        }
     }
 
     private int GetEnemySpawnInterval()
