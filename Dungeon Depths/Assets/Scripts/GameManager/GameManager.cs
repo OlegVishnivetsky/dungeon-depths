@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 public class GameManager : SingletonMonobehaviour<GameManager>
@@ -16,6 +19,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     [HideInInspector] public GameState gameState;
     [HideInInspector] public GameState previousGameState;
 
+    private InstantiatedRoom bossRoom;
+
+    private int playerScore;
+    private int scoreMultiplier;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,15 +35,28 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void OnEnable()
     {
         StaticEventHandler.OnRoomChanged += StaticEventHandler_OnRoomChanged;
+        StaticEventHandler.OnRoomEnemiesDefeated += StaticEventHandler_OnRoomEnemiesDefeated;
+        StaticEventHandler.OnPointsScored += StaticEventHandler_OnPointsScored;
+        StaticEventHandler.OnMultiplier += StaticEventHandler_OnMultiplier;
+
+        player.destroyedEvent.OnDestroyed += DestroyedEvent_OnDestroyed;
     }
 
     private void OnDisable()
     {
         StaticEventHandler.OnRoomChanged -= StaticEventHandler_OnRoomChanged;
+        StaticEventHandler.OnRoomEnemiesDefeated -= StaticEventHandler_OnRoomEnemiesDefeated;
+        StaticEventHandler.OnPointsScored -= StaticEventHandler_OnPointsScored;
+        StaticEventHandler.OnMultiplier -= StaticEventHandler_OnMultiplier;
+
+        player.destroyedEvent.OnDestroyed -= DestroyedEvent_OnDestroyed;
     }
 
     private void Start()
     {
+        playerScore = 0;
+        scoreMultiplier = 1;
+
         previousGameState = GameState.GameStarted;
         gameState = GameState.GameStarted;
     }
@@ -77,8 +98,69 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             case GameState.GameStarted:
                 PlayDungeonLevel(currentDungeonLevelListIndex);
                 gameState = GameState.PlayingLevel;
+                RoomEnemiesDefeated();
+                break;
+            case GameState.LevelCompleted:
+                StartCoroutine(LevelCompleted());
+                break;
+            case GameState.GameWon:
+                if (previousGameState != GameState.GameWon)
+                {
+                    StartCoroutine(GameWon());
+                }
+                break;
+            case GameState.GameLost:
+                if (previousGameState != GameState.GameWon)
+                {
+                    StopAllCoroutines();
+                    StartCoroutine(GameLost());
+                }
+                break;
+            case GameState.RestartGame:
+                RestartGame();
                 break;
         }
+    }
+
+    private IEnumerator LevelCompleted()
+    {
+        gameState = GameState.PlayingLevel;
+
+        yield return new WaitForSeconds(2f);
+
+        while (Input.GetKeyDown(KeyCode.Return))
+        {
+            yield return null;
+        }
+
+        yield return null;
+
+        currentDungeonLevelListIndex++;
+        PlayDungeonLevel(currentDungeonLevelListIndex);
+    }
+
+    private IEnumerator GameWon()
+    {
+        previousGameState = GameState.GameWon;
+
+        yield return new WaitForSeconds(10f);
+
+        gameState = GameState.RestartGame;
+    }
+
+    private IEnumerator GameLost()
+    {
+        previousGameState = GameState.GameLost;
+
+        yield return new WaitForSeconds(10f);
+
+        gameState = GameState.RestartGame;
+
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene("MainGameScene");
     }
 
     private void PlayDungeonLevel(int dungeonLevelListIndex)
@@ -109,6 +191,87 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private void StaticEventHandler_OnRoomChanged(RoomChangedEventArgs roomChangedArgs)
     {
         SetCurrentRoom(roomChangedArgs.room);
+    }
+
+    private void StaticEventHandler_OnPointsScored(PointsScoredArgs pointsScoredArgs)
+    {
+        playerScore += pointsScoredArgs.points * scoreMultiplier;
+
+        StaticEventHandler.InvokeScoreChangedEvent(playerScore, scoreMultiplier);
+    }
+
+    private void StaticEventHandler_OnMultiplier(MultiplierArgs multiplierArgs)
+    {
+        if (multiplierArgs.multiplier && scoreMultiplier < 30)
+        {
+            scoreMultiplier++;
+        }
+        else if (!multiplierArgs.multiplier && scoreMultiplier > 1)
+        {
+            scoreMultiplier--;
+        }
+
+        StaticEventHandler.InvokeScoreChangedEvent(playerScore, scoreMultiplier);
+    }
+
+    private void StaticEventHandler_OnRoomEnemiesDefeated(RoomEnemiesDefeatedArgs roomEnemiesDefeatedArgs)
+    {
+        RoomEnemiesDefeated();
+    }
+
+    private void RoomEnemiesDefeated()
+    {
+        bool isDungeonClearOfRegularEnemies = true;
+
+        bossRoom = null;
+
+        foreach (KeyValuePair<string, Room> keyValuePair in DungeonBuilder.Instance.dungeonBuilderRoomDictionary)
+        {
+            Room room = keyValuePair.Value;
+
+            if (room.roomNodeType.isBossRoom)
+            {
+                bossRoom = room.instantiatedRoom;
+                continue;
+            }
+
+            if (!room.isClearedOfEnemies)
+            {
+                isDungeonClearOfRegularEnemies = false;
+                break;
+            }
+        }
+
+        if ((isDungeonClearOfRegularEnemies && bossRoom == null) || (isDungeonClearOfRegularEnemies && bossRoom.room.isClearedOfEnemies))
+        {
+            if (currentDungeonLevelListIndex < dungeonLevelList.Count - 1)
+            {
+                gameState = GameState.LevelCompleted;
+            }
+            else
+            {
+                gameState = GameState.GameWon;
+            }
+        }
+        else if (isDungeonClearOfRegularEnemies)
+        {
+            gameState = GameState.BossStage;
+
+            StartCoroutine(BossStage());
+        }
+    }
+
+    private IEnumerator BossStage()
+    {
+        bossRoom.gameObject.SetActive(true);
+        bossRoom.UnlockDoors();
+
+        yield return new WaitForSeconds(2f);
+    }
+
+    private void DestroyedEvent_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs destroyedEventArgs)
+    {
+        
     }
 
     #region Validation

@@ -22,6 +22,18 @@ public static class HelperUtilities
         return mouseWorldPosition;
     }
 
+    public static void CameraWorldPositionBounds(out Vector2Int cameraWorldPositionLowerBounds,
+        out Vector2Int cameraWorldPositionUpperBounds, Camera camera)
+    {
+        Vector3 worldPositionViewportBottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 worldPositionViewportTopRight = camera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+        cameraWorldPositionLowerBounds = new Vector2Int((int)worldPositionViewportBottomLeft.x,
+            (int)worldPositionViewportBottomLeft.y);
+        cameraWorldPositionUpperBounds = new Vector2Int((int)worldPositionViewportTopRight.x,
+            (int)worldPositionViewportTopRight.y);
+    }
+
     public static float GetAngleFromVector(Vector3 vector)
     {
         float radians = Mathf.Atan2(vector.y, vector.x);
