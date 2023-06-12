@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(HealthEvent))]
 public class Health : MonoBehaviour
 {
+    [SerializeField] private HealthBar healthBar;
+
     private int startingHealth;
     private int currentHealth;
 
@@ -53,6 +55,15 @@ public class Health : MonoBehaviour
                 spriteRenderer = enemy.spriteRenderers[0];
             }
         }
+
+        if (enemy != null && enemy.enemyDetails.isHealthBarDisplayed && healthBar != null)
+        {
+            healthBar.EnableHealthBar();
+        }
+        else if (healthBar != null)
+        {
+            healthBar.DisableHealthBar();
+        }
     }
 
     public void TakeDamage(int damageAmount)
@@ -70,6 +81,11 @@ public class Health : MonoBehaviour
 
             CallHealthEvent(damageAmount);
             PostHitImmunity();
+
+            if (healthBar != null)
+            {
+                healthBar.SetHealthBarValue((float)currentHealth / (float)startingHealth);
+            }
         }
     }
 

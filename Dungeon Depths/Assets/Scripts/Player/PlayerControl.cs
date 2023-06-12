@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Policy;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -10,10 +11,14 @@ public class PlayerControl : MonoBehaviour
 
     private Player player;
     private bool leftMousePreviousFrame = false;
+    private bool isPlayerMovementDisabled = false;
+
     private int currentWeaponIndex = 1;
     private float moveSpeed;
+
     private Coroutine playerRollCoroutine;
     private WaitForFixedUpdate waitForFixedUpdate;
+
     private float playerRollCooldownTimer = 0f;
 
     [HideInInspector] public bool isPlayerRolling = false;
@@ -54,6 +59,8 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        if (isPlayerMovementDisabled) return;
+
         if (isPlayerRolling) return;
 
         MovementInput();
@@ -320,6 +327,17 @@ public class PlayerControl : MonoBehaviour
 
             isPlayerRolling = false;
         }
+    }
+
+    public void EnablePlayerMovement()
+    {
+        isPlayerMovementDisabled = false;
+    }
+
+    public void DisablePlayerMovement()
+    {
+        isPlayerMovementDisabled = true;
+        player.idleEvent.InvokeIdleEvent();
     }
 
     #region Validation

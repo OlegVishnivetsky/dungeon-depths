@@ -19,7 +19,8 @@ public enum GameState
     GameLost,
     GamePaused,
     DungeonOverviewMap,
-    RestartGame
+    RestartGame,
+    None
 }
 
 public enum AimDirection

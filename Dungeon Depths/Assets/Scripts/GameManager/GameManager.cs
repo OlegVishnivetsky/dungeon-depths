@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-using System;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
@@ -9,6 +10,9 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 {
     [SerializeField] private List<DungeonLevelSO> dungeonLevelList;
     [SerializeField] private int currentDungeonLevelListIndex = 0;
+
+    [Space(10), SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private CanvasGroup canvasGroup;
 
     private Room currentRoom;
     private Room previousRoom;
@@ -59,6 +63,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         previousGameState = GameState.GameStarted;
         gameState = GameState.GameStarted;
+
     }
 
     private void Update()
@@ -112,7 +117,6 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             case GameState.GameLost:
                 if (previousGameState != GameState.GameWon)
                 {
-                    StopAllCoroutines();
                     StartCoroutine(GameLost());
                 }
                 break;
@@ -128,6 +132,14 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         yield return new WaitForSeconds(2f);
 
+        yield return StartCoroutine(Fade(0, 1, 2, new Color(0, 0, 0, 0.4f)));
+
+        yield return StartCoroutine(DisplayMessageRoutine($"CONGRATS {GameResources.Instance.currentPlayerSO.playerName}!\n\n" +
+            $"LEVEL COMPLETED", Color.white, 5));
+        yield return StartCoroutine(DisplayMessageRoutine($"PRESS RETURN KEY\n\nTO GO TO THE NEXT LEVEL!", Color.white, 5));
+
+        yield return StartCoroutine(Fade(1, 0, 2, new Color(0, 0, 0, 0.4f)));
+
         while (Input.GetKeyDown(KeyCode.Return))
         {
             yield return null;
@@ -142,8 +154,16 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private IEnumerator GameWon()
     {
         previousGameState = GameState.GameWon;
+        GetPlayer().playerControl.DisablePlayerMovement();
 
-        yield return new WaitForSeconds(10f);
+        yield return StartCoroutine(Fade(0, 1, 2, Color.black));
+
+        yield return StartCoroutine(DisplayMessageRoutine($"WELL DONE {GameResources.Instance.currentPlayerSO.playerName} " +
+            $"YOU HAME DEFEATED THE DUNGEON", Color.white, 4));
+
+        yield return StartCoroutine(DisplayMessageRoutine($"YOU SCORED {playerScore.ToString("###,###0")}", Color.white, 4));
+
+        yield return StartCoroutine(DisplayMessageRoutine($"PRESS RETURN KEY RO RESTART", Color.white, 0));
 
         gameState = GameState.RestartGame;
     }
@@ -151,11 +171,40 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private IEnumerator GameLost()
     {
         previousGameState = GameState.GameLost;
+        gameState = GameState.None;
+        GetPlayer().playerControl.DisablePlayerMovement();
 
-        yield return new WaitForSeconds(10f);
+        StartCoroutine(Fade(0, 1, 2, Color.black));
+
+        Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+
+        yield return StartCoroutine(DisplayMessageRoutine($"YOU DIED", Color.white, 2));
+
+        yield return StartCoroutine(DisplayMessageRoutine($"YOU SCORED {playerScore.ToString("###,###0")}", Color.white, 2));
+
+        yield return StartCoroutine(DisplayMessageRoutine($"PRESS RETURN KEY RO RESTART", Color.white, 0));
 
         gameState = GameState.RestartGame;
+    }
 
+    private IEnumerator BossStage()
+    {
+        bossRoom.gameObject.SetActive(true);
+        bossRoom.UnlockDoors();
+
+        yield return new WaitForSeconds(2f);
+
+        yield return StartCoroutine(Fade(0, 1, 2, new Color(0, 0, 0, 0.4f)));
+
+        yield return StartCoroutine(DisplayMessageRoutine($"WELL DONE {GameResources.Instance.currentPlayerSO.playerName} YOU HAVE REACHED THE FINAL STAGE!\n\n" +
+            $"DEFEAT THE BOSS TO GO TO ANOTHER LEVEL", Color.white, 5));
+
+        yield return StartCoroutine(Fade(1, 0, 2, new Color(0, 0, 0, 0.4f)));
     }
 
     private void RestartGame()
@@ -176,6 +225,8 @@ public class GameManager : SingletonMonobehaviour<GameManager>
 
         player.gameObject.transform.position = new Vector3((currentRoom.lowerBounds.x + currentRoom.upperBounds.x) / 2f,
             (currentRoom.lowerBounds.y + currentRoom.upperBounds.y) / 2f, 0f);
+
+        StartCoroutine(DisplayLevelDungeonText());
 
         player.gameObject.transform.position = HelperUtilities.GetSpawnPositionNearestToPlayer(player.gameObject.transform.position);
     }
@@ -260,18 +311,69 @@ public class GameManager : SingletonMonobehaviour<GameManager>
             StartCoroutine(BossStage());
         }
     }
-
-    private IEnumerator BossStage()
-    {
-        bossRoom.gameObject.SetActive(true);
-        bossRoom.UnlockDoors();
-
-        yield return new WaitForSeconds(2f);
-    }
-
     private void DestroyedEvent_OnDestroyed(DestroyedEvent destroyedEvent, DestroyedEventArgs destroyedEventArgs)
     {
-        
+        previousGameState = gameState;
+        gameState = GameState.GameLost;
+    }
+
+    private IEnumerator DisplayLevelDungeonText()
+    {
+        StartCoroutine(Fade(0, 1, 0, Color.black));
+        GetPlayer().playerControl.DisablePlayerMovement();
+
+        string text = $"LEVEL {currentDungeonLevelListIndex}\n\n{dungeonLevelList[currentDungeonLevelListIndex].levelName.ToUpper()}";
+
+        yield return StartCoroutine(DisplayMessageRoutine(text, Color.white, 2));
+
+        GetPlayer().playerControl.EnablePlayerMovement();
+
+        yield return StartCoroutine(Fade(1, 0, 2, Color.black));
+    }
+
+    private IEnumerator DisplayMessageRoutine(string messageText, Color color, float duration)
+    {
+        this.messageText.text = messageText;
+        this.messageText.color = color;
+
+        if (duration > 0f)
+        {
+            float timer = duration;
+
+            while (timer > 0f && !Input.GetKeyDown(KeyCode.Return))
+            {
+                timer -= Time.deltaTime;
+                yield return null;
+            }
+        }
+        else
+        {
+            while (!Input.GetKeyDown(KeyCode.Return))
+            {
+                yield return null;
+            }
+        }
+
+        yield return null;
+
+        this.messageText.SetText(" ");
+    }
+
+    private IEnumerator Fade(float startAlpha, float targetAlpha, float duration, Color color)
+    {
+        Image image = canvasGroup.GetComponent<Image>();
+        image.color = color;
+
+        canvasGroup.alpha = startAlpha;
+
+        float time = 0f;
+
+        while (time <= duration)
+        {
+            time += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, time / duration);
+            yield return null;
+        }
     }
 
     #region Validation

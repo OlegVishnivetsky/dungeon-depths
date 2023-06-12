@@ -40,5 +40,6 @@ MonoBehaviour:
     enemyHealthAmount: 500
   - dungeonLevel: {fileID: 0}
     enemyHealthAmount: 0
-  isImuneAfterHit: 0
+  isImmuneAfterHit: 0
   hitImunityTime: 0
+  isHealthBarDisplayed: 1
