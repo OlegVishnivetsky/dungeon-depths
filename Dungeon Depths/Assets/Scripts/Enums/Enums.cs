@@ -23,6 +23,27 @@ public enum GameState
     None
 }
 
+public enum ChestSpawnEvent
+{
+    OnRoomEntry,
+    OnEnemiesDefeated
+}
+
+public enum ChestSpawnPosition
+{
+    AtSpawnPosition,
+    AtPlayerPosition
+}
+
+public enum ChestState
+{
+    Closed,
+    HealthItem,
+    AmmoItem,
+    WeaponItem,
+    Empty
+}
+
 public enum AimDirection
 {
     Up,

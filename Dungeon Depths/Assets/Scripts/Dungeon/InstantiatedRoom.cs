@@ -20,6 +20,8 @@ public class InstantiatedRoom : MonoBehaviour
 
     [HideInInspector] public Bounds roomColliderBounds;
 
+    [SerializeField] private GameObject environmentGameObject;
+
     private BoxCollider2D boxCollider2D;
 
     private void Awake()
@@ -281,14 +283,15 @@ public class InstantiatedRoom : MonoBehaviour
         DisableRoomCollider();
     }
 
-    public void UnlockDoors()
+    public void UnlockDoors(float doorUnlockDelay)
     {
-        StartCoroutine(UnlockDoorsRoutine());
+        StartCoroutine(UnlockDoorsRoutine(doorUnlockDelay));
     }
 
-    private IEnumerator UnlockDoorsRoutine()
+    private IEnumerator UnlockDoorsRoutine(float doorUnlockDelay)
     {
-        yield return new WaitForSeconds(Settings.doorUnlockDelay);
+        if (doorUnlockDelay > 0f)
+            yield return new WaitForSeconds(doorUnlockDelay);
 
         Door[] doorArray = GetComponentsInChildren<Door>();
 
@@ -308,5 +311,21 @@ public class InstantiatedRoom : MonoBehaviour
     private void EnableRoomCollider()
     {
         boxCollider2D.enabled = true;
+    }
+
+    public void ActivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(true);
+        }
+    }
+
+    public void DeactivateEnvironmentGameObjects()
+    {
+        if (environmentGameObject != null)
+        {
+            environmentGameObject.SetActive(false);
+        }
     }
 }

@@ -11,6 +11,10 @@ public class RoomTemplateSO : ScriptableObject
 
     [HideInInspector] public GameObject previousPrefab;
 
+    [Header("ROOM MUSIC")]
+    public MusicTrackSO battleMusic;
+    public MusicTrackSO ambientMusic;
+
     public RoomNodeTypeSO roomNodeType;
 
     public Vector2Int lowerBounds;

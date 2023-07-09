@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Policy;
@@ -65,6 +66,7 @@ public class PlayerControl : MonoBehaviour
 
         MovementInput();
         WeaponInput();
+        UseItemInput();
         PlayerRollCooldownTimer();
     }
 
@@ -142,6 +144,26 @@ public class PlayerControl : MonoBehaviour
         FireWeaponInput(weaponDirection, weaponAngleDegrees, playerAngleDegrees, playerAimDirection);
         SwitchWeaponInput();
         ReloadWeaponInput();
+    }
+
+    private void UseItemInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            float useItemRadius = 2f;
+
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(player.GetPlayerPosition(), useItemRadius);
+
+            foreach (Collider2D collider in colliders)
+            {
+                IUseable iUseable = collider.GetComponent<IUseable>();
+
+                if (iUseable != null)
+                {
+                    iUseable.UseItem();
+                }
+            }
+        }
     }
 
     private void AimWeaponInput(out Vector3 weaponDirection, out float weaponAngleDegrees, out float playerAngleDegrees, out AimDirection playerAimDirection)

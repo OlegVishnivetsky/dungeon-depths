@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: cb0ba9996ff3232498069123a98d05b3
   prefab: {fileID: 7224931148630070477, guid: 98aec9cd5174b2042a2251f87cc1ef79, type: 3}
   previousPrefab: {fileID: 7224931148630070477, guid: 98aec9cd5174b2042a2251f87cc1ef79, type: 3}
+  battleMusic: {fileID: 11400000, guid: b3092c494060a7946bcad8d32d4b545b, type: 2}
+  ambientMusic: {fileID: 11400000, guid: 23b6610bbeb540c4a8bd8406d099c9d3, type: 2}
   roomNodeType: {fileID: 11400000, guid: dca5188b0c44f534d98e12a29c65f1a4, type: 2}
   lowerBounds: {x: -2, y: -7}
   upperBounds: {x: 23, y: 19}

@@ -2,5 +2,5 @@
 public class SpawnableObjectRatio<T>
 {
     public T dungeonObject;
-    public int ration;
+    public int ratio;
 }

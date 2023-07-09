@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -28,9 +29,47 @@ public class RoomLightingControl : MonoBehaviour
         if (roomChangedArgs.room == instantiatedRoom.room && !instantiatedRoom.room.isLit)
         {
             FadeInRoomLighting();
+
+            instantiatedRoom.ActivateEnvironmentGameObjects();
+            FadeInEnvironmentLighting();
+
             FadeInDoors();
 
             instantiatedRoom.room.isLit = true;
+        }
+    }
+
+    private void FadeInEnvironmentLighting()
+    {
+        Material material = new Material(GameResources.Instance.variableLitShader);
+
+        Environment[] environmentComponents = GetComponentsInChildren<Environment>();
+
+        foreach (Environment environmentComponent in environmentComponents)
+        {
+            if (environmentComponent != null)
+            {
+                environmentComponent.spriteRenderer.material = material;
+            }
+        }
+
+        StartCoroutine(FadeInEnvironmentLightingRoutine(material, environmentComponents));
+    }
+
+    private IEnumerator FadeInEnvironmentLightingRoutine(Material material, Environment[] environmentComponents)
+    {
+        for (float i = 0.05f; i <= 1f; i += Time.deltaTime / Settings.fadeInTime)
+        {
+            material.SetFloat("Alpha_Slider", i);
+            yield return null;
+        }
+
+        foreach (var environmentComponent in environmentComponents)
+        {
+            if (environmentComponent != null)
+            {
+                environmentComponent.spriteRenderer.material = GameResources.Instance.litMaterial;
+            }
         }
     }
 

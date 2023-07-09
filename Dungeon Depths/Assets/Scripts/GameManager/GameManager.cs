@@ -195,7 +195,7 @@ public class GameManager : SingletonMonobehaviour<GameManager>
     private IEnumerator BossStage()
     {
         bossRoom.gameObject.SetActive(true);
-        bossRoom.UnlockDoors();
+        bossRoom.UnlockDoors(Settings.doorUnlockDelay);
 
         yield return new WaitForSeconds(2f);
 

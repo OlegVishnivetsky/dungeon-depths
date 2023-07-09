@@ -39,6 +39,10 @@ public static class Settings
     public static int rollLeft = Animator.StringToHash("rollLeft");
     public static int rollRight = Animator.StringToHash("rollRight");
     public static int openDoor = Animator.StringToHash("open");
+    public static int destroy = Animator.StringToHash("destroy");
+    public static int use = Animator.StringToHash("use");
+
+    public static string stateDestroyed = "Destroyed";
 
     public static float baseSpeedForPlayerAnimation = 8f;
     public static float baseSpeedForEnemyAnimation = 3f;
@@ -51,6 +55,13 @@ public static class Settings
     public const string playerWeapon = "playerWeapon";
 
     #endregion GAMEOBJECT TAGS
+
+    #region AUDIO
+
+    public const float musicFadeOutTime = 0.5f;
+    public const float musicFadeInTime = 0.5f;
+
+    #endregion AUDIO
 
     #region FIRING CONTROL
 

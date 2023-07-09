@@ -3,21 +3,23 @@ using UnityEngine;
 
 public class RandomSpawnableObject<T>
 {
-    private struct ChanceBoundaries
+    private struct chanceBoundaries
     {
         public T spawnableObject;
         public int lowBoundaryValue;
         public int highBoundaryValue;
     }
 
-    public int ratioValueTotal = 0;
+    private int ratioValueTotal = 0;
+    private List<chanceBoundaries> chanceBoundariesList = new List<chanceBoundaries>();
+    private List<SpawnableObjectByLevel<T>> spawnableObjectsByLevelList;
 
-    private List<ChanceBoundaries> chanceBoundariesList = new List<ChanceBoundaries>();
-    private List<SpawnableObjectByLevel<T>> spawnableObjectByLevelList;
-
-    public RandomSpawnableObject(List<SpawnableObjectByLevel<T>> spawnableObjectByLevelList)
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public RandomSpawnableObject(List<SpawnableObjectByLevel<T>> spawnableObjectsByLevelList)
     {
-        this.spawnableObjectByLevelList = spawnableObjectByLevelList;
+        this.spawnableObjectsByLevelList = spawnableObjectsByLevelList;
     }
 
     public T GetItem()
@@ -27,35 +29,32 @@ public class RandomSpawnableObject<T>
         chanceBoundariesList.Clear();
         T spawnableObject = default(T);
 
-        foreach (SpawnableObjectByLevel<T> spawnableObjectByLevel in spawnableObjectByLevelList)
+        foreach (SpawnableObjectByLevel<T> spawnableObjectsByLevel in spawnableObjectsByLevelList)
         {
-            if (spawnableObjectByLevel.dungeonLevel == GameManager.Instance.GetCurrentDungeonLevel())
+            // check for current level
+            if (spawnableObjectsByLevel.dungeonLevel == GameManager.Instance.GetCurrentDungeonLevel())
             {
-                foreach (SpawnableObjectRatio<T> spawnableObjectRatio in spawnableObjectByLevel.spawnableObjectRatioList)
+                foreach (SpawnableObjectRatio<T> spawnableObjectRatio in spawnableObjectsByLevel.spawnableObjectRatioList)
                 {
                     int lowerBoundary = upperBoundary + 1;
-                    upperBoundary = lowerBoundary + spawnableObjectRatio.ration - 1;
 
-                    ratioValueTotal += spawnableObjectRatio.ration;
+                    upperBoundary = lowerBoundary + spawnableObjectRatio.ratio - 1;
 
-                    chanceBoundariesList.Add(new ChanceBoundaries()
-                    {
-                        spawnableObject = spawnableObjectRatio.dungeonObject,
-                        lowBoundaryValue = lowerBoundary,
-                        highBoundaryValue = upperBoundary
-                    });
+                    ratioValueTotal += spawnableObjectRatio.ratio;
+
+                    // Add spawnable object to list;
+                    chanceBoundariesList.Add(new chanceBoundaries() { spawnableObject = spawnableObjectRatio.dungeonObject, lowBoundaryValue = lowerBoundary, highBoundaryValue = upperBoundary });
+
                 }
             }
         }
 
-        if (chanceBoundariesList.Count == 0)
-        {
-            return default(T);
-        }
+        if (chanceBoundariesList.Count == 0) return default(T);
 
         int lookUpValue = Random.Range(0, ratioValueTotal);
 
-        foreach (ChanceBoundaries spawnChance in chanceBoundariesList)
+        // loop through list to get seleted random spawnable object details
+        foreach (chanceBoundaries spawnChance in chanceBoundariesList)
         {
             if (lookUpValue >= spawnChance.lowBoundaryValue && lookUpValue <= spawnChance.highBoundaryValue)
             {
@@ -63,6 +62,7 @@ public class RandomSpawnableObject<T>
                 break;
             }
         }
+
 
         return spawnableObject;
     }

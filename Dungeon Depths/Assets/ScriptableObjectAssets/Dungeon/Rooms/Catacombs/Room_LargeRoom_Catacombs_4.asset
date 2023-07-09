@@ -15,6 +15,8 @@ MonoBehaviour:
   guid: 5ee72894fb65e4442b285cb6a8fe2615
   prefab: {fileID: 4327421925113694216, guid: 2e06030c12b72ff4bae8e1584883bf81, type: 3}
   previousPrefab: {fileID: 4327421925113694216, guid: 2e06030c12b72ff4bae8e1584883bf81, type: 3}
+  battleMusic: {fileID: 11400000, guid: b3092c494060a7946bcad8d32d4b545b, type: 2}
+  ambientMusic: {fileID: 11400000, guid: 23b6610bbeb540c4a8bd8406d099c9d3, type: 2}
   roomNodeType: {fileID: 11400000, guid: b13251ff4c34a00479ba22d000f694f7, type: 2}
   lowerBounds: {x: 9, y: -1}
   upperBounds: {x: 71, y: 48}
@@ -67,37 +69,37 @@ MonoBehaviour:
   - dungeonLevel: {fileID: 11400000, guid: b8758f957f5d71840adad21f9bd3d838, type: 2}
     spawnableObjectRatioList:
     - dungeonObject: {fileID: 11400000, guid: 9d3ec680add723d4c8476d0557e8e08c, type: 2}
-      ration: 10
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 6a4a15f0069270a49bf6952f38da5f68, type: 2}
-      ration: 10
+      ratio: 5
   - dungeonLevel: {fileID: 11400000, guid: 909009f7abc89d04bbb6ed8e9cd32d9c, type: 2}
     spawnableObjectRatioList:
     - dungeonObject: {fileID: 11400000, guid: 9d3ec680add723d4c8476d0557e8e08c, type: 2}
-      ration: 5
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 9d3ec680add723d4c8476d0557e8e08c, type: 2}
-      ration: 5
-    - dungeonObject: {fileID: 0}
-      ration: 0
+      ratio: 5
+    - dungeonObject: {fileID: 11400000, guid: 9d3ec680add723d4c8476d0557e8e08c, type: 2}
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 9c50370e5f2707941a7f2b4a7753c78a, type: 2}
-      ration: 5
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 6a4a15f0069270a49bf6952f38da5f68, type: 2}
-      ration: 5
+      ratio: 5
   - dungeonLevel: {fileID: 11400000, guid: c901330d7cbb877418ef51a1ea9a6891, type: 2}
     spawnableObjectRatioList:
     - dungeonObject: {fileID: 11400000, guid: 6a5f1037008a71e45b611fc971b8a4e8, type: 2}
-      ration: 5
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 9d3ec680add723d4c8476d0557e8e08c, type: 2}
-      ration: 6
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: ca91d8bbd4bb22341b29ef5ad11936fc, type: 2}
-      ration: 6
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 4def61f6081cd20478b738a477958344, type: 2}
-      ration: 3
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 9c50370e5f2707941a7f2b4a7753c78a, type: 2}
-      ration: 3
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 295be1f9a7aab4744ac24a331fd5f548, type: 2}
-      ration: 3
+      ratio: 5
     - dungeonObject: {fileID: 11400000, guid: 3ad1befef543ad44cbf165efc93bbd3e, type: 2}
-      ration: 6
+      ratio: 5
   roomEnemySpawnParametersList:
   - dungeonLevel: {fileID: 11400000, guid: b8758f957f5d71840adad21f9bd3d838, type: 2}
     minTotalEnemiesToSpawn: 7
